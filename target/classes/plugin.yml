@@ -1,0 +1,15 @@
+name: MoPets
+version: '0.0.1'
+main: mv.mossuh.mopets.MoPets
+api-version: '1.13'
+
+depend:
+  - MoCore
+
+softdepend:
+  - MoBoosters
+
+commands:
+  mopets:
+    aliases:
+      - mopet

@@ -1,0 +1,329 @@
+API:
+  API Class: PetsAPI
+  Events:
+    - 'PetChangeExpEvent'
+    - 'PetChangeLevelEvent'
+    - 'PlayerChangePetEvent'
+
+Required Plugins:
+  - 'vCore'
+
+Optional Plugins:
+  - 'MoBoosters'
+
+Commands:
+  - '/mopets give <code> <amount> <player> <args...>'
+  - '/mopets giveall <code> <amount> <args...>'
+
+  - '/mopets addexp <amount> <player>'
+  - '/mopets setexp <amount> <player>'
+
+  - '/mopets addlevel <amount> <player>'
+  - '/mopets setlevel <amount> <player>'
+
+  - '/mopets reload'
+
+  - '/mopets activepets'
+  - '/mopets check'
+
+PlaceholderAPI:
+  # If you have multiple-pets: false in config.yml you don't have to indicate
+  # the pet code because you will only have 1 active pet
+  # Ex: %mopets_active_level%
+
+  - '%mopets_active_pets%'
+  - '%mopets_active_tags_<pet code>%'
+  - '%mopets_active_has_tag_<tag>_<pet code>%' # Multiple Pets
+  - '%mopets_active_has_tag_<tag>%' # Single Pet
+  - '%mopets_active_level_<pet code>%'
+  - '%mopets_active_exp_<pet code>%'
+  - '%mopets_active_cost_<pet code>%'
+  - '%mopets_active_max_level_<pet code>%'
+
+  - '%mopets_active_variables_<pet code>%'
+  - '%mopets_active_variable_{<variable>}_<pet code>%'
+  - '%mopets_active_has_variable_{<variable>}_<pet code>%'
+
+  - '%mopets_active_boost_<booster type>_<applicator type>_<boosted>_<pet code>%'
+  - '%mopets_active_has_boost_<bosoter type>_<applicator type>_<boosted>_<pet code>%'
+
+Player Variables:
+  - '%player%'
+Cooldown Variables:
+  - '%cooldown%'
+  - '%cooldown_formatted%'
+ItemStack Variables:
+  - '%itemstack_material%'
+  - '%itemstack_data%'
+  - '%itemstack_name%'
+  - '%itemstack_lore%'
+  - '%itemstack_amount%'
+  - '%itemstack_durability%'
+
+  - '%itemstack_is_mopet%'
+  - '%itemstack_mopet_level%'
+  - '%itemstack_mopet_exp%'
+  - '%itemstack_mopet_cost%'
+  - '%itemstack_mopet_max_level%'
+  - '%itemstack_mopet_tags%'
+  - '%itemstack_mopet_code%'
+  - '%itemstack_mopet_variable_{<variable>}%'
+Entity Variables:
+  - '%entity_type%'
+  - '%entity_name%'
+  - '%entity_x%'
+  - '%entity_y%'
+  - '%entity_z%'
+  - '%entity_world%'
+Block Variables:
+  - '%block%'
+  - '%block_data%'
+  - '%block_x%'
+  - '%block_y%'
+  - '%block_z%'
+  - '%block_world%'
+Pet Variables:
+  - '%level%'
+  - '%exp%'
+  - '%cost%'
+  - '%max_level%'
+  - '%tags%'
+  - '%code%'
+  - '%variable_{<variable>}%'
+
+
+Actions:
+  exp:
+    ExpTypes:
+      - BLOCK_BREAK
+      - BLOCK_PLACE
+      - EDPRISON_BLOCK_BREAK
+      - PLAYER_FISH
+      - PLAYER_KILLS
+      - BLOCKIFY_BLOCK_BREAK
+    Example:
+      exp:
+        <exp type>:
+          - '<entity>:<data> -> <exp>'
+          - 'ALL -> 1' #When the entity is ALL, every entity of the event will give you exp
+        PLAYER_KILLS:
+          - 'ZOMBIE -> 2'
+        BLOCK_BREAK:
+          - 'ALL -> 2'
+  Default:
+    EventTypes:
+      - 'BLOCK_BREAK | Default Variables: Block Variables'
+      - 'BLOCK_PLACE | Default Variables: Block Variables'
+      - 'BLOCK_INTERACT | Default Variables: Block Variables'
+      - 'PLAYER_ATTACK | Default Variables: Entity Variables'
+      - 'PLAYER_ATTACKED | Default Variables: Entity Variables'
+      - 'PLAYER_KILLS | Default Variables: Entity Variables'
+      - 'PLAYER_DIE | Default Variables: Entity Variables'
+      - 'PLAYER_CAUGHT_FISH | Default Variables: Entity Variables'
+      - 'PLAYER_CAUGHT_ENTITY | Default Variables: Entity Variables'
+      - 'PLAYER_BED_ENTER'
+      - 'PLAYER_BED_LEAVE'
+      - 'PLAYER_CHANCE_WORLD | Default Variables: %from_world%, %to_world%'
+      - 'PLAYER_COMMAND | Default Variables: %command%'
+      - 'PLAYER_JOIN'
+      - 'PLAYER_LEAVE'
+      - 'PLAYER_RESPAWN'
+      - 'PLAYER_FLY'
+      - 'PLAYER_UNFLY'
+      - 'PLAYER_SNEAK'
+      - 'PLAYER_UNSNEAK'
+      - 'PLAYER_SPRINT'
+      - 'PLAYER_UNSPRINT'
+      - 'PLAYER_EQUIP_PIECE | Default Variables: %piece_type%, ItemStack Variables'
+      - 'PLAYER_UNEQUIP_PIECE | Default Variables: %piece_type%, ItemStack Variables'
+      - 'PLAYER_LEVELUP | Default Variables: %old_level%, %new_level%'
+      - 'PLAYER_CHAT | Default Variables: %message%'
+      - 'ITEM_SELECT | Default Variables: ItemStack Variables'
+      - 'ITEM_UNSELECT | Default Variables: ItemStack Variables'
+      - 'ITEM_ENCHANT | Default Variables: %exp_cost%, ItemStack Variables'
+      - 'ITEM_CRAFT | Default Variables: ItemStack Variables'
+      - 'ITEM_INTERACT | Default Variables: %click_type%, ItemStack Variables'
+      - 'ITEM_CONSUME | Default Variables: ItemStack Variables'
+      - 'ITEM_BREAK | Default Variables: ItemStack Variables'
+      - 'ITEM_PICKUP | Default Variables: ItemStack Variables'
+      - 'ITEM_DROP | Default Variables: ItemStack Variables'
+      - 'ITEM_HELD | Default Variables: ItemStack Variables'
+      - 'ITEM_UNHELD | Default Variables: ItemStack Variables'
+      - 'EDPRISON_BLOCK_BREAK'
+      - 'BLOCKIFY_BLOCK_BREAK'
+      - 'ENTITY_INTERACT | Default Variables: Entity Variables'
+    Requirements:
+      RequirementTypes:
+        - 'EVENT'
+        - 'EVAL | Support PlaceholderAPI, Events Variables, Local Variables, Item Variables'
+    Rewards:
+      ChanceTypes:
+        - CHANCE
+        - CHANCE_PER_LEVEL
+      RewardTypes:
+        # Support PlaceholderAPI, Events Variables, LocalVariables, Item Variables
+        # Rewards can support multiple rewards or execute randomly, and you can execute it to your targets or to players using PlaceholderAPI
+        #      TARGET: Execute the rewards to the living entity or items.
+        #      PlaceholderAPI: Used to execute rewards to other players with their name.
+        # Examples:
+        #   ADD_EXP:TARGET -> 100
+        #   MESSAGE:%superior_island_member_2% -> &b&lISLAND! &aHas been added 5 beacons to the island
+        - 'CONSOLE_COMMAND | Format: CONSOLE_COMMAND -> <command>'
+        - 'PLAYER_COMMAND | Format: PLAYER_COMMAND -> <command>'
+        - 'PLAYER_COMMAND_AS_OP | Format: PLAYER_COMMAND_AS_OP -> <command>'
+        - 'TITLE | Format: TITLE -> <title>::<subtitle>'
+        - 'SOUND | Format: SOUND -> <sound>::<volume>::<pitch>'
+        - 'BROADCAST_MESSAGE | Format: BROADCAST_MESSAGE -> <message>'
+        - 'BROADCAST_TITLE | Format: BROADCAST_TITLE -> <title>::<subtitle>'
+        - 'JSON | Format: JSON -> <json>'
+        - 'JSON_BROADCAST | Format: JSON_BROADCAST -> <json>'
+        - 'EFFECT | Format: EFFECT -> <effect>::<duration>::<amplifier>'
+        - 'WORLD_DROP | Format: WORLD_DROP -> <code>[<amount>]'
+        - 'GIVE_ITEM | Format: GIVE_ITEM -> <code>[<amount>]'
+        - 'CANCEL_EVENT | Format: CANCEL_EVENT'
+        - 'CANCEL_DROPS | Format: CANCEL_DROPS'
+        - 'EXECUTE_ACTION | Format: EXECUTE_ACTION -> <action>' # You can execute other default actions of the same pet.
+        - ''
+        - 'Commands especially for items:'
+        - 'ADD_EXP | Format: ADD_EXP -> <exp>'
+        - 'SET_EXP | Format: SET_EXP -> <exp>'
+        - 'ADD_LEVEL | Format: ADD_LEVEL -> <level>'
+        - 'SET_LEVEL | Format: SET_LEVEL -> <level>'
+        - 'REMOVE_EXP | Format: REMOVE_EXP -> <exp>'
+        - 'REMOVE_LEVEL | Format: REMOVE_LEVEL -> <level>'
+        - ''
+        # Adding or removing tags have cooldown of 2 seconds, you can't execute this reward more of 1 time for 2 seconds
+        # This for avoid some problems.
+        - 'SET_VARIABLE | Format: SET_VARIABLE -> <variable>::<value>' # SET_VARIABLE -> a_variable::test
+        - 'REMOVE_VARIABLE | Format: REMOVE_VARIABLE <variable>::<value>' # REMOVE_VARIABLE -> a_variable
+        - ''
+    # Multiplier Types available: BASE and BOOST_PER_LEVEL
+    #     BASE: The boost will be the specified, and it won't be multiplied for something
+    #     BOOST_PER_LEVEL: The specified boost will be multiplier for the level of the item
+    # To use the boosters you need to have MoBoosters plugin in your server.
+    boosters:
+      Example1:
+        multiplier: <multiplier type>
+        type: <booster type>
+        applicator: <applicator type>
+        boosted: <boost type>
+        boost: <double boost>
+      Example2:
+        multiplier: BOOST_PER_LEVEL
+        type: PERSONAL
+        applicator: MINECRAFT
+        boosted: EXPERIENCE
+        boost: 3
+
+
+ItemFormat:
+  <code>: # Example -> code: MagicBeef
+    tags: <tags> # Example -> tags: MagicBeef, Magic, Beef
+    # For booster-identifier you need to have MoBoosters in your server to work.
+    # This is to have only one active booster of MoBoosters on certain items, for example, not all boosters
+    # (all boosters with different identifiers) that multiply the exp of the item are counted, but only one type.
+    # Warning: This will not take into account external boosters such as boosters in item actions, it will only
+    # count boosters that are applied directly to the item.
+    # Consider that if the identifier you are putting here is not registered in the identifiers in the MoBoosters config.yml, it will not work.
+    # In MoBoosters it would only work with
+    #    Applicator type: MoPets
+    #    Boosted: <For now only Exp>.
+    # If you want it to consider all boosters with the same applicator type, delete booster-identifier .
+    booster-identifier: Example1
+    variables:
+      - '<variable> -> <value>'
+    upgrades:
+      max-level: <level> # Level as integer number. Example -> max-level: 10
+      cost-per-level: <cost> # Cost can be double (Formule: <cost-per-level>*<level>). Example -> cost-per-level: 10
+      message:
+        # The progress is shown in the lore with the placeholder %progress%
+        progress:
+          - '<message>' # Support: PlaceholderAPI, Local Variables and Item Variables. Example:
+        maxed-progress:
+          - '<message>' # Support: PlaceholderAPI, Local Variables and Item Variables
+    item-info:
+      # It is necessary to have material and data to work. You can remove every else like name, lore, etc. if you want.
+      material: <material> # It can support custom heads too. Example1 -> material: GOLDEN_APPLE    Example2 -> material: basehead-<head value>
+      data: 0 # This is the data of the materials, used for more old minecraft versions.
+      # Name and lore support PlaceholderAPI, Local Variables and Item Variables.
+      name: '&a&lName &8| &7[%level%]'
+      lore:
+        - ''
+        - '&7If you consume this apple you have'
+        - '&7a &d{local_math_50*%level%}% &7chance of receiving Speed II.'
+        - '&8At level 2 you will double the chance'
+        - ''
+        - '&dRemove worms with magic dust!'
+        - ''
+        - '%progress%'
+      unbreakable: <true/false>
+      unique: <true/false> # The item can't be stacked with other identical items
+      enchantments:
+        - <enchantment>:<level> # You can put multiple enchants. Example -> LUCK:2
+      flags:
+        - <flag> # You can put multiple flags. Example -> HIDE_ENCHANTS
+    actions:
+      default:
+        <reward name>:
+          event: <event type>
+          cancel_action: <true/false>
+          # Cooldown is used for wait to execute the rewards and else rewards and for this you can use cooldown_message to show
+          # that all rewards are on cooldown, but if the cooldown_bypass is true, the action will continue running the cooldown but still
+          # the rewards or else rewards will be executed. The cooldown_bypass can be useful if you want to check, for example, that the cooldown is inactive
+          # to execute the rewards and if it is active it will execute the else rewards.
+          # Example:
+          # CooldownChecker:
+          #  cooldown: 3
+          #  cooldown_bypass: true
+          #  requirements:
+          #    - '[eval] %cooldown% == 0'
+          #  rewards:
+          #    - '[CHANCE -> 100] EXECUTE_ACTION -> ItemChecker'
+          #  else:
+          #    - '[CHANCE -> 100] CANCEL_EVENT && MESSAGE -> &b&lENERGY! &cYou have to wait %cooldown_formatted%!'
+          cooldown: <cooldown in seconds>
+          cooldown_bypass: <true/false>
+          cooldown_message: <message> # Variables: %cooldown%, %cooldown_formatted%
+          requirements:
+            # Available requirements EVENT and EVAL. EVAL support PlaceholderAPI, Local Variables, Item Variables, Cooldown Variables
+            # For EVENT you can use:
+            #     EVENT is to specify the entity
+            #     Separate requirements: ||
+            # For EVAL you can use:
+            #     Separate requirements: ||
+            #     Strings: equals, !equals, equalsIgnoreCase, !equalsIgnoreCase, startsWith, !startsWith, contains, !contains'
+            #     Numbers: <=, <, >=, >, ==, !=
+            - '[<requirement type>] requirement || requirement2 || requirement3'
+          rewards:
+            - '[<chance type>] -> <chance>] <reward type> -> <reward>'
+            - '[<chance type>] -> <chance>] <reward type> -> <reward> && <reward type> -> <reward>'
+            - '[<chance type>] -> <chance>] <reward type> -> <reward> && <reward type> -> <reward> || <reward type> -> <reward>'
+          else:
+            # Else rewards are executed when the requirements aren't met
+            - '[<chance type>] -> <chance>] <reward type> -> <reward>'
+            - '[<chance type>] -> <chance>] <reward type> -> <reward> && <reward type> -> <reward>'
+            - '[<chance type>] -> <chance>] <reward type> -> <reward> && <reward type> -> <reward> || <reward type> -> <reward>'
+      Example:
+        event: PLAYER_KILLS
+        requirements:
+          - '[EVENT] ZOMBIE'
+          - '[EVAL] %level% >= 5'
+        rewards:
+          - '[CHANCE -> 50] EFFECT -> SPEED:5:1 && MESSAGE -> &6&lEFFECT! &aSpeed effect was applied to you!'
+      # Multiplier Types available: BASE and BOOST_PER_LEVEL
+      #     BASE: The boost will be the specified, and it won't be multiplied for something
+      #     BOOST_PER_LEVEL: The specified boost will be multiplier for the level of the pet
+      # To use the boosters you need to have MoBoosters plugin in your server.
+      boosters:
+        Example1:
+          multiplier: <multiplier type>
+          type: <booster type>
+          applicator: <applicator type>
+          boosted: <boost type>
+          boost: <double boost>
+        Example2:
+          multiplier: BOOST_PER_LEVEL
+          type: PERSONAL
+          applicator: MINECRAFT
+          boosted: EXPERIENCE
+          boost: 3

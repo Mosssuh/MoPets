@@ -1,0 +1,23 @@
+INVALID_CODE: '&8[&bMoPets&8] &cYou''re indicating an invalid code!'
+INVALID_AMOUNT: '&8[&bMoPets&8] &cYou''re indicating an invalid amount!'
+INVALID_PLAYER: '&8[&bMoPets&8] &cThe player is offline or had not joined to the server!'
+INVALID_PET: '&cThat isn''t a pet!'
+
+NO_PERMISSION: '&8[&bMoPets&8] &cYou don''t have permission!'
+
+# Variables: %code%, %amount%
+COMMAND_GIVE_PET_SENDER: '&8[&bMoPets&8] &aYou gave %amount% pet(s) from %code% to player %player_name%!'
+COMMAND_GIVE_ALL_PET_SENDER: '&8[&bMoPets&8] &aYou gave %amount% pet(s) from %code% to all online players!'
+COMMAND_GIVE_PET_RECEIVER: '&8[&bMoPets&8] &aYou received %amount% pet(s) from %code%!'
+
+COMMAND_PET_ADD_EXP_RECEIVER: '&8[&bMoPets&8] Your %pet_name% has received %new_exp% exp.'
+COMMAND_PET_ADD_EXP_SENDER: '&8[&bMoPets&8] The pet of %player% has received %new_exp% exp.'
+COMMAND_PET_SET_EXP_RECEIVER: '&8[&bMoPets&8] Your %pet_name% exp has established to %new_exp% exp.'
+COMMAND_PET_SET_EXP_SENDER: '&8[&bMoPets&8] The exp of the pet of %player% has established to %new_exp% exp.'
+
+COMMAND_PET_ADD_LEVEL_RECEIVER: '&8[&bMoPets&8] Your %pet_name% has received %new_level% level(s).'
+COMMAND_PET_ADD_LEVEL_SENDER: '&8[&bMoPets&8] The pet of %player% has received %new_level% level(s).'
+COMMAND_PET_SET_LEVEL_RECEIVER: '&8[&bMoPets&8] Your %pet_name% level has established to %new_level% level.'
+COMMAND_PET_SET_LEVEL_SENDER: '&8[&bMoPets&8] The level of the pet of %player% has established to %new_level% level.'
+
+PET_LEVEL_UP: '&8[&bMoPets&8] &aYour pet %item_name% &aleveled up to &7%level%&a.'

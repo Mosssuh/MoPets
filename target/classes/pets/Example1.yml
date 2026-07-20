@@ -1,0 +1,74 @@
+Pets:
+  VisserPet:
+    tags: Visser, Pet, Fishing
+    upgrades:
+      max-level: 100
+      cost-per-level: 10
+      message:
+        progress:
+          - 'Exp:& %exp%/%max_level%'
+        maxed-progress:
+          - '&b&lMAXED PET'
+    exp:
+      PLAYER_KILLS:
+        - 'ALL -> 1'
+    item-info:
+      material: basehead-eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTU1YzkxN2Q5NjhkZDc3YWQyYmY3MWMzMWQxZjA3MDBhNGUzMDExMGEwZmRmMTI4ODZiOGM3ZDAzYTQzZWRlMCJ9fX0=
+      data: 0
+      name: '&bVisser &8| &fPet &7[Lvl. %level%]'
+      lore:
+        - '&8Fishing Pet'
+        - ''
+        - '&9Attrazione'
+        - '&8When you catch a puffer fish, you have a 0.1'
+        - '&8chance of getting Visser''s rod.'
+        - ''
+        - '&7Enchanter'
+        - '&8You have a chance to get Mending book, this'
+        - '&8chance increases each level (Base level: 0.0001).'
+        - '&8Minimum level 50 required.'
+        - ''
+        - '&eApfel'
+        - '&8Fishing gets enchanted golden apples with the'
+        - '&8Visser Rod. You can only receive the rewards'
+        - '&8using your rod.'
+        - ''
+        - '&5Side'
+        - '&8If you catch something, you have a chance to'
+        - '&8get a Totem, but it will consume a &5Side&8. You are'
+        - '&8also required to use your Visser rod.'
+        - ''
+        - '%progress%'
+    actions:
+      default:
+        VisserRod:
+          event: PLAYER_CAUGHT_FISH
+          requirements:
+            - '[event] RAW_FISH:3'
+          rewards:
+            - '[CHANCE -> 0.1] CONSOLE_COMMAND -> give %player% fishing_rod 1 name:&3Visser_&8|_&fRod
+              durability:5 luck:2 lure:3 vanishingcurse:1 lore:&r|&7Rod_created_by_the_angler_Visser.|&7Owner:_&3%player%
+              && TITLE -> &6&lREWARD::&fYou received the rod from Visser && MESSAGE -> &6&lREWARD!
+              &fYou received the rod from Visser.'
+        MendingBook:
+          event: PLAYER_CAUGHT_FISH
+          rewards:
+            - '[CHANCE_PER_LEVEL -> 0.0001] CONSOLE_COMMAND -> give %player% enchanted_book 1 mending:1 && MESSAGE -> &5&lREWARD! &aYou received a mending book.'
+        GoldenApple:
+          event: PLAYER_CAUGHT_FISH
+          requirements:
+            - '[eval] %checkitem_getinfo:mainhand_namecontains:% contains Visser'
+            - '[eval] %checkitem_getinfo:mainhand_lorecontains:% contains Rod created by the angler Visser.'
+            - '[eval] %checkitem_getinfo:mainhand_lorecontains:% contains %player_name%'
+          rewards:
+            - '[chance -> 0.01] console_command -> give %player% golden_apple:1 && message -> &5&lREWARD! &aYou received a enchanted golden apple.'
+        Totem:
+          event: PLAYER_CAUGHT_FISH
+          requirements:
+            - '[eval] %checkitem_getinfo:mainhand_namecontains:% contains Visser'
+            - '[eval] %checkitem_getinfo:mainhand_lorecontains:% contains Rod created by the angler Visser.'
+            - '[eval] %checkitem_getinfo:mainhand_lorecontains:% contains %player_name%'
+            - '[eval] %crazycrates_Side_physical% >= 1'
+          list-rewards:
+            - '[chance -> 100] console_command -> crazycrates take physical Side 1 %player% && message -> &b&lCONSUME! &7You consumed a Side.'
+            - '[chance -> 0.1] console_command -> give %player% totem 1 && sound -> ITEM_TOTEM_USE::10::0.1 && message -> &6&lREWARD! &aYou received a totem. && title -> &6&lREWARD::&eYou received a Totem'

@@ -1,0 +1,46 @@
+Config:
+  time-format:
+    year: 'y'
+    month: 'm'
+    week: 'w'
+    day: 'd'
+    hour: 'h'
+    minute: 'm'
+    second: 's'
+  # This interval is used to update the item lore, name of active items
+  update-item-info-interval: 5
+  # It is used for check and save in cache the active items in the different active options.
+  # This cache is used for the actions (rewards) and for the exp.
+  # Example: If you have an item that works in hand, it is saved in cache, but if you change of slot,
+  # you need to wait the second since the last time the item was updated in cache.
+  # Anyway, there are events that update the items on the moment, either when you pick up an item, when
+  # you equip an armor piece, etc. This check interval is used for security, in case the items are not
+  # updated properly, to update them all.
+  check-items-interval: 5
+  # Disable the default actions and other types of external rewards of plugins.
+  actions: true
+  # Disable the option to receive exp in items and level up items.
+  upgrades: true
+
+  # These two options are to activate only certain classes of the events, if in exp-events
+  # is only BLOCK_BREAK, only that way of raising exp will be activated, or if in actions-events
+  # is only PLAYER_ATTACK, only the combat class will be activated.
+  exp-events:
+    - 'BLOCK_BREAK'
+    - 'PLAYER_KILLS'
+  actions-events:
+    - 'BLOCK_BREAK'
+    - 'PLAYER_ATTACK'
+
+  # This option is to be able to have several active pets, this does not
+  # mean that you can have several pets with the same code, but with different codes.
+  # If this is false, the conflicts option will be disabled.
+  multiple-pets: false
+  # Conflicts is useful to don't have active pets with the conflict tags
+  # or codes. And you can set how many active pets people can have.
+  # Format: - '<Conflict Type>: <conflicted items> -> <how many pets can have active>'
+  #                 Code
+  #                 Tags
+  conflicts:
+    - 'Tags: Pets -> 1'
+Pets:

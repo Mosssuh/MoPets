@@ -1,0 +1,245 @@
+package mv.mossuh.mopets.PETS.Pet;
+
+import mv.mossuh.mopets.ENUMS.ChangePetType;
+import mv.mossuh.mopets.API.Events.PlayerChangePetEvent;
+import mv.mossuh.mopets.API.PetsAPI;
+import mv.mossuh.mopets.CONFIGS.Config.Config;
+import mv.mossuh.mopets.CONFIGS.Pets.PetIdentifier;
+import mv.mossuh.mopets.UTILITIES.UtilMethods;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.*;
+
+public class PetsPlayer {
+
+    private UUID uuid;
+    private Player player;
+    private List<Pet> pets = new ArrayList<>();
+
+    public PetsPlayer(UUID uuid, List<Pet> pets) {
+        this.uuid = uuid;
+        if (uuid != null) { this.player = Bukkit.getPlayer(uuid); }
+        if (pets != null) { this.pets = pets; }
+    }
+
+    public boolean isPlayer() { return uuid != null; }
+
+    public UUID getUUID() { return uuid; }
+
+    public List<Pet> getPets() { return pets; }
+
+    public Pet getPet(String code) {
+        for (Pet pet : pets) {
+            PetIdentifier identifier = pet.getConfigPet().getPetIdentifier();
+            if (identifier.getCode().equalsIgnoreCase(code)) {
+                return pet;
+            }
+        }
+        return new Pet(null, null, null, null, null, null, null);
+    }
+
+    public void setPets(List<Pet> pets) {
+        if (Config.MULTIPLE_PETS) {
+            this.pets = UtilMethods.cleanConflicts(player, pets);
+            return;
+        }
+
+        // If new pets are empty but old pets has an active pet, deactivate it
+        if (pets.isEmpty()) {
+            if (!this.pets.isEmpty()) {
+                Pet actualPet = this.pets.get(0);
+                if (actualPet.isPet()) {
+                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, actualPet, ChangePetType.DEACTIVATED);
+                    Bukkit.getPluginManager().callEvent(event);
+                }
+            }
+
+            this.pets = new ArrayList<>();
+            return;
+        }
+
+        // If new pet isn't valid, cancel
+        Pet newPet = pets.get(0);
+        if (!newPet.isPet()) return;
+
+        // If the new pet is the same as the active pet, cancel
+        if (!this.pets.isEmpty()) {
+            Pet actualPet = this.pets.get(0);
+            if (actualPet.isPet() && Objects.equals(newPet.getPetUUID(), actualPet.getPetUUID())) {
+                return;
+            }
+        }
+
+        // If the pet is diferente, activate it
+        PlayerChangePetEvent event = new PlayerChangePetEvent(player, newPet, ChangePetType.ACTIVATED);
+        Bukkit.getPluginManager().callEvent(event);
+        this.pets = Collections.singletonList(newPet);
+    }
+
+
+    public void addPet(Pet pet) {
+
+        String code = pet.getConfigPet().getPetIdentifier().getCode();
+        UUID petUUID = pet.getPetUUID();
+        List<Pet> copyPets = new ArrayList<>(pets);
+        for (Pet p : copyPets) {
+            if (p.getPetUUID() == petUUID || p.getConfigPet().getPetIdentifier().getCode().equalsIgnoreCase(code)) {
+                return;
+            }
+        }
+
+        copyPets.add(pet);
+
+        setPets(copyPets);
+
+        /*
+        if (Config.MULTIPLE_PETS) {
+            String code = pet.getConfigPet().getPetIdentifier().getCode();
+            UUID uuid = pet.getPetUUID();
+
+            List<Pet> copyPets = new ArrayList<>(pets);
+            for (Pet p : copyPets) {
+                if (p.getPetUUID() == uuid || p.getConfigPet().getPetIdentifier().getCode().equalsIgnoreCase(code)) {
+                    return;
+                }
+            }
+
+            copyPets.add(pet);
+
+            setPets(copyPets);
+
+            pets = UtilMethods.cleanConflicts(player, new ArrayList<>(copyPets));
+        } else {
+
+            if (!pets.isEmpty()) {
+                Pet actualPet = pets.stream().findFirst().orElse(Pet.getInvalidPet());
+                if (actualPet.isPet()) {
+                    if (actualPet.getPetUUID().equals(pet.getPetUUID())) {
+                        return;
+                    }
+                } else {
+                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, actualPet, ChangePetType.DEACTIVATED);
+                    Bukkit.getPluginManager().callEvent(event);
+                }
+            }
+            this.pets = new ArrayList<>(Collections.singletonList(pet));
+            PlayerChangePetEvent event = new PlayerChangePetEvent(player, pet, ChangePetType.ACTIVATED);
+            Bukkit.getPluginManager().callEvent(event);
+        }
+
+         */
+    }
+
+
+    public void removePet(Pet pet) {
+        UUID uuid = pet.getPetUUID();
+
+
+        List<Pet> copyPets = new ArrayList<>(pets);
+        Iterator<Pet> iterator = copyPets.iterator();
+        while (iterator.hasNext()) {
+            Pet p = iterator.next();
+            if (p.getPetUUID().equals(uuid)) {
+                iterator.remove();
+                break;
+            }
+        }
+
+        setPets(copyPets);
+
+        /*
+        if (Config.MULTIPLE_PETS) {
+            List<Pet> copyPets = new ArrayList<>(pets);
+            Iterator<Pet> iterator = copyPets.iterator();
+            while (iterator.hasNext()) {
+                Pet p = iterator.next();
+                if (p.getPetUUID().equals(uuid)) {
+                    iterator.remove();
+                    break;
+                }
+            }
+
+            pets = UtilMethods.cleanConflicts(player, new ArrayList<>(copyPets));
+        } else {
+            Iterator<Pet> iterator = pets.iterator();
+            while (iterator.hasNext()) {
+                Pet p = iterator.next();
+                if (p.getPetUUID().equals(uuid)) {
+                    iterator.remove();
+                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, p, ChangePetType.DEACTIVATED);
+                    Bukkit.getPluginManager().callEvent(event);
+                    break;
+                }
+            }
+        }
+
+         */
+    }
+
+
+    public void removePet(UUID petUUID) {
+        List<Pet> copyPets = new ArrayList<>(pets);
+        Iterator<Pet> iterator = copyPets.iterator();
+        while (iterator.hasNext()) {
+            Pet p = iterator.next();
+            if (p.getPetUUID().equals(petUUID)) {
+                iterator.remove();
+                break;
+            }
+        }
+
+        setPets(copyPets);
+
+
+        /*
+        if (Config.MULTIPLE_PETS) {
+            List<Pet> copyPets = new ArrayList<>(pets);
+            Iterator<Pet> iterator = copyPets.iterator();
+            while (iterator.hasNext()) {
+                Pet p = iterator.next();
+                if (p.getPetUUID().equals(uuid)) {
+                    iterator.remove(); // Safely remove the element
+                    break;
+                }
+            }
+
+            pets = UtilMethods.cleanConflicts(player, new ArrayList<>(copyPets));
+        } else {
+            Iterator<Pet> iterator = pets.iterator();
+            while (iterator.hasNext()) {
+                Pet p = iterator.next();
+                if (p.getPetUUID() == petUUID) {
+                    iterator.remove();
+
+                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, p, ChangePetType.DEACTIVATED);
+                    Bukkit.getPluginManager().callEvent(event);
+                    break;
+                }
+            }
+        }
+
+         */
+    }
+
+    public boolean hasPets() {
+        return !pets.isEmpty();
+    }
+
+    public List<String> getCodes() {
+        List<String> codes = new ArrayList<>();
+        for (Pet pet : pets) {
+            codes.add(pet.getConfigPet().getPetIdentifier().getCode());
+        }
+        return codes;
+    }
+
+    public void updatePets() {
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null && player.isOnline()) {
+            List<Pet> pets = PetsGetter.inventory(player);
+            PetsPlayer petsPlayer = PetsAPI.getManager().getPlayer(uuid);
+            petsPlayer.setPets(pets);
+        }
+    }
+}

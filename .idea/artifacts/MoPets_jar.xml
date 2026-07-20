@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MoPets:jar">
+    <output-path>$USER_HOME$/Escritorio/MoJars</output-path>
+    <root id="archive" name="MoPets.jar">
+      <element id="module-output" name="MoPets" />
+    </root>
+  </artifact>
+</component>
