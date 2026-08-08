@@ -7,14 +7,11 @@ import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
 import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPets;
 import mv.mossuh.mopets.NBT.NBTPet;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Pet {
     private UUID uuid = null;
@@ -65,7 +62,6 @@ public class Pet {
     public double getExp() { return exp; }
     public double getCost() { return cost; }
 
-
     public void setLevel(Integer level) {
         if (level != null) {
             NBTPet.setLevel(itemStack, level);
@@ -92,7 +88,7 @@ public class Pet {
             this.level = this.level + level;
         }
     }
-    public void addExp(Double exp) {
+    public synchronized void addExp(Double exp) {
         if (exp != null) {
             NBTPet.setExp(itemStack, this.exp + exp);
             this.exp = this.exp + exp;
@@ -100,33 +96,23 @@ public class Pet {
     }
 
 
-    private static final Map<UUID, Map<String, Double>> expMap = new ConcurrentHashMap<>();
+    private double accumulatedEXP = 0;
 
-    public void addExp(double exp, boolean cooldown) {
+    public synchronized void addExp(double exp, boolean cooldown) {
         if (!cooldown) {
             addExp(exp);
             return;
         }
 
-        String code = Config.PLUGIN_NAME+"-"+uuid;
-        Map<String, Double> playerExpMap = expMap.computeIfAbsent(uuid, k -> new ConcurrentHashMap<>());
-        playerExpMap.compute(code, (key, value) -> (value == null) ? exp : value + exp);
+        String code = Config.PLUGIN_NAME+"-Cooldown-"+uuid;
+        accumulatedEXP += exp;
 
         if (Cooldown.startAndIsOnCooldown(code, 3)) {
             return;
         }
 
-        Map<String, Double> playerExpMapTimer = new ConcurrentHashMap<>(playerExpMap);
-        for (Map.Entry<String, Double> entry : playerExpMapTimer.entrySet()) {
-            String key = entry.getKey();
-            double value = entry.getValue();
-
-            if (key.equals(code)) {
-                addExp(value);
-                playerExpMap.remove(key);
-                return;
-            }
-        }
+        addExp(accumulatedEXP);
+        accumulatedEXP = 0;
     }
 
     public boolean hasVariables() { return !variables.isEmpty(); }

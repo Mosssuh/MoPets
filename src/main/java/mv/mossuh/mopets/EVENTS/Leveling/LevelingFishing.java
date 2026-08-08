@@ -1,7 +1,9 @@
 package mv.mossuh.mopets.EVENTS.Leveling;
 
+import mv.mossuh.mocore.VERSION.ServerVersion;
 import mv.mossuh.mopets.ENUMS.ExpType;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,8 +15,11 @@ public class LevelingFishing implements Listener {
         Player player = event.getPlayer();
         Entity caught = event.getCaught();
 
-        String getType = String.valueOf(((org.bukkit.entity.Item) caught).getItemStack().getType());
-        short getData = ((org.bukkit.entity.Item) caught).getItemStack().getDurability();
+        if (!(caught instanceof Item)) return;
+        Item item = (Item) caught;
+
+        String getType = String.valueOf(item.getItemStack().getType());
+        short getData = !ServerVersion.isAtLeast(ServerVersion.MC1_13) ? item.getItemStack().getData().getData() : -1;
 
         ExpType expType = ExpType.PLAYER_FISH;
         LevelingExecutor executor = new LevelingExecutor(player, expType, getType, getData, null);

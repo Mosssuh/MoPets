@@ -1,6 +1,7 @@
 package mv.mossuh.mopets.ACTIONS.RequirementsUtils;
 
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
+import mv.mossuh.mocore.VERSION.ServerVersion;
 import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
 import mv.mossuh.mopets.CONFIGS.Pets.PetIdentifier;
 import mv.mossuh.mopets.PETS.Pet.Pet;
@@ -31,14 +32,12 @@ public class DefaultVariables {
         String material = "";
         byte data = 0;
         String loreString = "";
-        short durability = 0;
         int amount = 0;
         if (itemStack != null && !itemStack.getType().equals(Material.AIR)) {
-            durability = itemStack.getDurability();
             material = itemStack.getType().name();
-            data = itemStack.getData().getData();
+            data = !ServerVersion.isAtLeast(ServerVersion.MC1_13) ? itemStack.getData().getData() : -1;
             amount = itemStack.getAmount();
-            if (itemStack.hasItemMeta()) {
+            if (itemStack.getItemMeta() != null) {
                 ItemMeta meta = itemStack.getItemMeta();
                 if (meta.hasDisplayName()) {
                     name = UtilString.get(meta.getDisplayName()).removeColors().apply();
@@ -92,7 +91,6 @@ public class DefaultVariables {
         variables.add(new VariableArg("%itemstack_name%", name));
         variables.add(new VariableArg("%itemstack_lore%", loreString));
         variables.add(new VariableArg("%itemstack_amount%", amount + ""));
-        variables.add(new VariableArg("%itemstack_durability%", durability + ""));
         return variables;
     }
 
@@ -102,7 +100,7 @@ public class DefaultVariables {
         if (block != null && !block.getType().equals(Material.AIR)) {
             Location location = block.getLocation();
             String type = block.getType().name();
-            String data = block.getData()+"";
+            String data = !ServerVersion.isAtLeast(ServerVersion.MC1_13) ? block.getData()+"" : "-1";
             variables.add(new VariableArg("%event_entity%", type));
             variables.add(new VariableArg("%event_data%", data));
             variables.add(new VariableArg("%block%", type));

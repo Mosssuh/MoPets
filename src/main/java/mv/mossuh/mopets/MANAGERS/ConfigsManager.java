@@ -65,7 +65,7 @@ public class ConfigsManager {
         mainConfig.registerConfig(true);
         informationConfig.registerConfig(true);
         messagesConfig.registerConfig(true);
-        petsConfigs.configure("Example1.yml");
+        petsConfigs.configure("Example1.yml", "Example2.yml");
         Config.load();
         configurePets();
     }

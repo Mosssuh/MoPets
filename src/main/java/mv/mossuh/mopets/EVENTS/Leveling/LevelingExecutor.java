@@ -43,8 +43,9 @@ public class LevelingExecutor {
         UUID uuid = player.getUniqueId();
 
         PetsPlayer petsPlayer = PetsAPI.getManager().getPlayer(uuid);
+        if (petsPlayer == null) return;
         if (petsPlayer.isPlayer() && petsPlayer.hasPets()) {
-            List<Pet> pets = new ArrayList<>(petsPlayer.getPets());
+            List<Pet> pets = petsPlayer.getPets();
 
             executor.submit(() -> {
                 List<Map.Entry<Pet, Double>> cached = new ArrayList<>();

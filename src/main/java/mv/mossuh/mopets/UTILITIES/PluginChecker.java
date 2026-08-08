@@ -2,7 +2,6 @@ package mv.mossuh.mopets.UTILITIES;
 
 import mv.mossuh.mocore.ENUMS.PluginType;
 import mv.mossuh.mocore.EVENTS.PluginCheckerEvent;
-import mv.mossuh.mopets.EVENTS.MoBoosters.PetExpBooster;
 import mv.mossuh.mopets.CONFIGS.Config.Config;
 import mv.mossuh.mopets.EVENTS.MoBoosters.MoBoostersReward;
 import mv.mossuh.mopets.MoPets;
@@ -26,7 +25,6 @@ public class PluginChecker implements Listener {
                 if (Config.ACTIONS) {
                     instance.getServer().getPluginManager().registerEvents(new MoBoostersReward(), instance);
                 }
-                instance.getServer().getPluginManager().registerEvents(new PetExpBooster(), instance);
                 UtilString.get("&8[" + Config.PREFIX + "&8] &aDetected MoBoosters, used as soft-depend. Enabling classes.").hex().sendMessageInConsole();
                 break;
         }
