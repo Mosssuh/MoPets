@@ -1,6 +1,7 @@
 package mv.mossuh.mopets.PETS.Creator;
 
 import de.tr7zw.nbtapi.NBTItem;
+import mv.mossuh.mocore.NBT.NBTMethods;
 import mv.mossuh.mocore.UTILITIES.ARGS.CommandArgs.CommandArgs;
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
 import mv.mossuh.mocore.VERSION.ServerVersion;
@@ -163,17 +164,13 @@ public class PetCreator {
             }
         }
 
-        if (itemInfo.isUnbreakable()) {
-            NBTItem NBTItem = new NBTItem(itemStack);
-            NBTItem.setBoolean("Unbreakable", true);
-            itemStack = NBTItem.getItem();
-        }
-
         itemStack.setItemMeta(itemMeta);
 
-        if (itemInfo.isUnique()) {
-            NBTPet.setUnique(itemStack);
-        }
+        NBTMethods.modify(itemStack, tags -> {
+            if (itemInfo.isUnbreakable()) {
+                tags.setBoolean("Unbreakable", true);
+            }
+        });
 
         if (petIdentifier.hasCode()) {
             String code = petIdentifier.getCode();
@@ -316,7 +313,7 @@ public class PetCreator {
         String code = itemStringSplit[0];
         String amountString = "1";
         if (itemStringSplit.length == 2) {
-            amountString = UtilString.get(itemStringSplit[1].replaceAll(" ", "").replace("]", "")).setPlaceholders(uuid).apply();
+            amountString = itemStringSplit[1].replaceAll(" ", "").replace("]", "");
         }
 
         int amount = (int) Math.round(Double.parseDouble(amountString));

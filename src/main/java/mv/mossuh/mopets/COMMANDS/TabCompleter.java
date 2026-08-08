@@ -46,7 +46,7 @@ public class TabCompleter implements org.bukkit.command.TabCompleter {
                 }
             }
         }
-        // en otro caso, no sugerimos nada
+
         return Collections.emptyList();
     }
 

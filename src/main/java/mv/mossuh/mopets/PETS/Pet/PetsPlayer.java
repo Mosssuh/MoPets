@@ -66,12 +66,12 @@ public class PetsPlayer {
         // If the new pet is the same as the active pet, cancel
         if (!this.pets.isEmpty()) {
             Pet actualPet = this.pets.get(0);
-            if (actualPet.isPet() && Objects.equals(newPet.getPetUUID(), actualPet.getPetUUID())) {
+            if (actualPet.isPet() && newPet.isEquals(actualPet)) {
                 return;
             }
         }
 
-        // If the pet is diferente, activate it
+        // If the pet is different, activate it
         PlayerChangePetEvent event = new PlayerChangePetEvent(player, newPet, ChangePetType.ACTIVATED);
         Bukkit.getPluginManager().callEvent(event);
         this.pets = Collections.singletonList(newPet);
@@ -92,43 +92,6 @@ public class PetsPlayer {
         copyPets.add(pet);
 
         setPets(copyPets);
-
-        /*
-        if (Config.MULTIPLE_PETS) {
-            String code = pet.getConfigPet().getPetIdentifier().getCode();
-            UUID uuid = pet.getPetUUID();
-
-            List<Pet> copyPets = new ArrayList<>(pets);
-            for (Pet p : copyPets) {
-                if (p.getPetUUID() == uuid || p.getConfigPet().getPetIdentifier().getCode().equalsIgnoreCase(code)) {
-                    return;
-                }
-            }
-
-            copyPets.add(pet);
-
-            setPets(copyPets);
-
-            pets = UtilMethods.cleanConflicts(player, new ArrayList<>(copyPets));
-        } else {
-
-            if (!pets.isEmpty()) {
-                Pet actualPet = pets.stream().findFirst().orElse(Pet.getInvalidPet());
-                if (actualPet.isPet()) {
-                    if (actualPet.getPetUUID().equals(pet.getPetUUID())) {
-                        return;
-                    }
-                } else {
-                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, actualPet, ChangePetType.DEACTIVATED);
-                    Bukkit.getPluginManager().callEvent(event);
-                }
-            }
-            this.pets = new ArrayList<>(Collections.singletonList(pet));
-            PlayerChangePetEvent event = new PlayerChangePetEvent(player, pet, ChangePetType.ACTIVATED);
-            Bukkit.getPluginManager().callEvent(event);
-        }
-
-         */
     }
 
 

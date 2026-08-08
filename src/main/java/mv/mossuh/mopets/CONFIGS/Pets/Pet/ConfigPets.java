@@ -1,7 +1,6 @@
 package mv.mossuh.mopets.CONFIGS.Pets.Pet;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ConfigPets {
     private static Set<ConfigPet> configs = new HashSet<>();

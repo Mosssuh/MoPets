@@ -12,6 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -62,6 +63,16 @@ public class UtilString {
     public UtilString setPlaceholders(Player player) {
         if (string != null && !string.isEmpty()) {
             if (player != null && player.isOnline()) {
+                string = PlaceholderAPI.setPlaceholders(player, string);
+            }
+        }
+        return this;
+    }
+
+    public UtilString setPlaceholders(LivingEntity entity) {
+        if (string != null && !string.isEmpty()) {
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
                 string = PlaceholderAPI.setPlaceholders(player, string);
             }
         }

@@ -97,10 +97,8 @@ Actions:
     ExpTypes:
       - BLOCK_BREAK
       - BLOCK_PLACE
-      - EDPRISON_BLOCK_BREAK
       - PLAYER_FISH
       - PLAYER_KILLS
-      - BLOCKIFY_BLOCK_BREAK
     Example:
       exp:
         <exp type>:
@@ -149,8 +147,6 @@ Actions:
       - 'ITEM_DROP | Default Variables: ItemStack Variables'
       - 'ITEM_HELD | Default Variables: ItemStack Variables'
       - 'ITEM_UNHELD | Default Variables: ItemStack Variables'
-      - 'EDPRISON_BLOCK_BREAK'
-      - 'BLOCKIFY_BLOCK_BREAK'
       - 'ENTITY_INTERACT | Default Variables: Entity Variables'
     Requirements:
       RequirementTypes:
@@ -291,7 +287,7 @@ ItemFormat:
             #     Separate requirements: ||
             # For EVAL you can use:
             #     Separate requirements: ||
-            #     Strings: equals, !equals, equalsIgnoreCase, !equalsIgnoreCase, startsWith, !startsWith, contains, !contains'
+            #     Strings: equals, !equals, equalsIgnoreCase, !equalsIgnoreCase, startsWith, !startsWith, contains, !contains
             #     Numbers: <=, <, >=, >, ==, !=
             - '[<requirement type>] requirement || requirement2 || requirement3'
           rewards:

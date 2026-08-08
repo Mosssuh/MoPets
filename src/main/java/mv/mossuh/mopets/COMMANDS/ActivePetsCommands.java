@@ -1,6 +1,7 @@
 package mv.mossuh.mopets.COMMANDS;
 
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
+import mv.mossuh.mocore.VERSION.ServerVersion;
 import mv.mossuh.mopets.API.PetsAPI;
 import mv.mossuh.mopets.CONFIGS.Config.Config;
 import mv.mossuh.mopets.CONFIGS.Messages;
@@ -68,7 +69,11 @@ public class ActivePetsCommands {
                             UtilString.get("&r").hex().sendMessage(player);
                             UtilString.get("&8--------------------------------------").hex().sendMessage(player);
                             UtilString.get("&r").hex().sendMessage(player);
-                            UtilString.get("&bMaterial: &7" + itemStack.getType().name() + ":" + itemStack.getData().getData()).hex().sendMessage(player);
+                            if (ServerVersion.isAtLeast(ServerVersion.MC1_13)) {
+                                UtilString.get("&bMaterial: &7" + itemStack.getType().name()).hex().sendMessage(player);
+                            } else {
+                                UtilString.get("&bMaterial: &7" + itemStack.getType().name() + ":" + itemStack.getData().getData()).hex().sendMessage(player);
+                            }
                             if (pet.isPet()) {
                                 UtilString.get("&bUUID: &7" + petUUID).hex().sendMessage(player);
                                 UtilString.get("&bCode: &7" + code).hex().sendMessage(player);

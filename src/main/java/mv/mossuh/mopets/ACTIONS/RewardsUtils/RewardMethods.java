@@ -123,27 +123,27 @@ public class RewardMethods {
         }
     }
 
-    public static void worldDrop(LivingEntity entity, Location location, String code) {
+    public static void worldDrop(LivingEntity entity, Location location, String reward) {
         if (location != null) {
             if (entity instanceof Player) {
                 Player player = (Player) entity;
                 UUID uuid = player.getUniqueId();
                 World world = location.getWorld();
-                ItemStack itemStack = PetCreator.fromReward(code, uuid);
+                ItemStack itemStack = PetCreator.fromReward(reward, uuid);
                 world.dropItemNaturally(location, itemStack);
             } else {
                 World world = location.getWorld();
-                ItemStack itemStack = PetCreator.fromReward(code, null);
+                ItemStack itemStack = PetCreator.fromReward(reward, null);
                 world.dropItemNaturally(location, itemStack);
             }
         }
     }
 
-    public static void giveItem(LivingEntity entity, String code) {
+    public static void giveItem(LivingEntity entity, String reward) {
         if (entity instanceof Player) {
             Player player = (Player) entity;
             UUID uuid = player.getUniqueId();
-            ItemStack itemStack = PetCreator.fromReward(code, uuid);
+            ItemStack itemStack = PetCreator.fromReward(reward, uuid);
             int amountToGive = itemStack.getAmount();
             ItemStack cloneStack = itemStack.clone();
 
