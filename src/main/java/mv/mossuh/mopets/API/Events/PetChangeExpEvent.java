@@ -13,7 +13,6 @@ public class PetChangeExpEvent extends Event implements Cancellable {
     private Player player;
     private Pet pet = new Pet(null, null, null, null, null, null, null);
     private double exp = 0;
-    private double boost = 1;
     private ExecuteType executeType = ExecuteType.NONE;
     private ReceiveType receiveType = ReceiveType.NONE;
     private boolean isCancelled;
@@ -54,36 +53,6 @@ public class PetChangeExpEvent extends Event implements Cancellable {
     public void addExp(double exp) {
         this.exp = this.exp + exp;
     }
-
-    public double getBoost() {
-        return boost;
-    }
-    public double getBoost(boolean ignoreBase) {
-        return boost - 1;
-    }
-    public void setBoost(double boost) {
-        if (boost < 1) {
-            boost = 1;
-        }
-
-        this.boost = boost;
-    }
-    public void addBoost(double boost) {
-        double newBoost = this.boost + boost;
-        if (newBoost < 1) {
-            newBoost = 1;
-        }
-
-        this.boost = newBoost;
-    }
-    public void removeBoost(double boost) {
-        double newBoost = this.boost - boost;
-        if (newBoost < 1) {
-            newBoost = 1;
-        }
-        this.boost = newBoost;
-    }
-
 
     @Override
     public HandlerList getHandlers() {

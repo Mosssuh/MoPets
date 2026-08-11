@@ -182,8 +182,7 @@ public class RewardMethods {
             if (petEvent.isCancelled()) {
                 return;
             }
-            double eventBoost = petEvent.getBoost();
-            double eventExp = petEvent.getExp() * eventBoost;
+            double eventExp = petEvent.getExp();
 
             pet.addExp(eventExp);
             PetUpdater.verifyPet(player, pet, false);
@@ -200,8 +199,8 @@ public class RewardMethods {
             if (petEvent.isCancelled()) {
                 return;
             }
-            double eventBoost = petEvent.getBoost();
-            double eventExp = petEvent.getExp() * eventBoost;
+
+            double eventExp = petEvent.getExp();
 
             pet.setExp(eventExp);
             PetUpdater.verifyPet(player, pet, false);

@@ -75,8 +75,7 @@ public class LevelingExecutor {
 
                         if (petEvent.isCancelled()) continue;
 
-                        double boost = petEvent.getBoost();
-                        double newExp = petEvent.getExp() * boost;
+                        double newExp = petEvent.getExp();
 
                         pet.addExp(newExp, true);
                         PetUpdater.verifyPet(player, pet, false);

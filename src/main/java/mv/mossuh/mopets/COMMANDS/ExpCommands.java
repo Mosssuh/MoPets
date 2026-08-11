@@ -49,8 +49,7 @@ public class ExpCommands {
 
                             if (event.isCancelled()) { return; }
 
-                            double boost = event.getBoost();
-                            double exp = event.getExp() * boost;
+                            double exp = event.getExp();
 
                             String name = UtilString.get(pet.getConfigPet().getItemInfo().getName()).hex().apply();
                             UtilString.get(Messages.COMMAND_PET_ADD_EXP_RECEIVER).hex().replaceString("%pet_name%", name).replaceString("%new_exp%", exp+"")
@@ -97,8 +96,7 @@ public class ExpCommands {
 
                             if (event.isCancelled()) { return; }
 
-                            double boost = event.getBoost();
-                            double exp = event.getExp() * boost;
+                            double exp = event.getExp();
 
                             String name = UtilString.get(pet.getConfigPet().getItemInfo().getName()).hex().apply();
                             UtilString.get(Messages.COMMAND_PET_SET_EXP_RECEIVER).hex().replaceString("%pet_name%", name).replaceString("%new_exp%", exp+"")
