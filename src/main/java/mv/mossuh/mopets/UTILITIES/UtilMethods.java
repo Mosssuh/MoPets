@@ -127,11 +127,11 @@ public class UtilMethods {
     }
 
 
-    public static List<Pet> cleanConflicts(Player player, List<Pet> pets) {
+    public static List<Pet> cleanConflicts(UUID uuid, List<Pet> pets) {
         List<Conflict> conflictList = Config.CONFLICT_ITEMS;
         Map<Conflict, Integer> conflictCounter = new ConcurrentHashMap<>();
         List<Pet> filteredPets = new ArrayList<>();
-        List<Pet> active = PetsAPI.getManager().getPlayer(player.getUniqueId()).getPets();
+        List<Pet> active = PetsAPI.getManager().getPlayer(uuid).getPets();
 
         Set<Pet> uniquePets = new HashSet<>();
         for (Pet pet : pets) {
@@ -198,7 +198,7 @@ public class UtilMethods {
         // This is when a new pet is activated
         for (Pet pet : filteredPets) {
             if (!activePetsUUIDs.contains(pet.getPetUUID())) {
-                PlayerChangePetEvent event = new PlayerChangePetEvent(player, pet, ChangePetType.ACTIVATED);
+                PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, pet, ChangePetType.ACTIVATED);
                 Bukkit.getPluginManager().callEvent(event);
             }
         }
@@ -206,7 +206,7 @@ public class UtilMethods {
         // This is when a pet was active, execute the event that now is inactive
         for (Pet pet : active) {
             if (!filteredPetUUIDs.contains(pet.getPetUUID())) {
-                PlayerChangePetEvent event = new PlayerChangePetEvent(player, pet, ChangePetType.DEACTIVATED);
+                PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, pet, ChangePetType.DEACTIVATED);
                 Bukkit.getPluginManager().callEvent(event);
             }
         }

@@ -70,7 +70,7 @@ public class LevelingExecutor {
                         Pet pet = entry.getKey();
                         double exp = entry.getValue();
 
-                        PetChangeExpEvent petEvent = new PetChangeExpEvent(player, pet, ExecuteType.NATURAL, ReceiveType.ADD, exp);
+                        PetChangeExpEvent petEvent = new PetChangeExpEvent(uuid, pet, ExecuteType.NATURAL, ReceiveType.ADD, exp);
                         Bukkit.getPluginManager().callEvent(petEvent);
 
                         if (petEvent.isCancelled()) continue;

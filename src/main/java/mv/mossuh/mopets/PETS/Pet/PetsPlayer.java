@@ -14,12 +14,10 @@ import java.util.*;
 public class PetsPlayer {
 
     private UUID uuid;
-    private Player player;
     private List<Pet> pets = new ArrayList<>();
 
     public PetsPlayer(UUID uuid, List<Pet> pets) {
         this.uuid = uuid;
-        if (uuid != null) { this.player = Bukkit.getPlayer(uuid); }
         if (pets != null) { this.pets = pets; }
     }
 
@@ -41,7 +39,7 @@ public class PetsPlayer {
 
     public void setPets(List<Pet> pets) {
         if (Config.MULTIPLE_PETS) {
-            this.pets = UtilMethods.cleanConflicts(player, pets);
+            this.pets = UtilMethods.cleanConflicts(uuid, pets);
             return;
         }
 
@@ -50,7 +48,7 @@ public class PetsPlayer {
             if (!this.pets.isEmpty()) {
                 Pet actualPet = this.pets.get(0);
                 if (actualPet.isPet()) {
-                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, actualPet, ChangePetType.DEACTIVATED);
+                    PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, actualPet, ChangePetType.DEACTIVATED);
                     Bukkit.getPluginManager().callEvent(event);
                 }
             }
@@ -72,7 +70,7 @@ public class PetsPlayer {
         }
 
         // If the pet is different, activate it
-        PlayerChangePetEvent event = new PlayerChangePetEvent(player, newPet, ChangePetType.ACTIVATED);
+        PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, newPet, ChangePetType.ACTIVATED);
         Bukkit.getPluginManager().callEvent(event);
         this.pets = Collections.singletonList(newPet);
     }

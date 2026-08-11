@@ -158,7 +158,7 @@ public class PetUpdater {
                 int obtainedLevel = pet.getLevel();
 
                 while (obtainedExp >= obtainedCost && obtainedLevel < maxLevel) {
-                    PetChangeLevelEvent petEvent = new PetChangeLevelEvent(player, pet, ExecuteType.NATURAL, ReceiveType.ADD, 1);
+                    PetChangeLevelEvent petEvent = new PetChangeLevelEvent(uuid, pet, ExecuteType.NATURAL, ReceiveType.ADD, 1);
                     Bukkit.getPluginManager().callEvent(petEvent);
 
                     if (petEvent.isCancelled()) { continue firstFor; }

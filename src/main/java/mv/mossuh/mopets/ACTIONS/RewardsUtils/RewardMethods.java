@@ -176,7 +176,8 @@ public class RewardMethods {
     public static void addExp(LivingEntity entity, Pet pet, double exp) {
         if (entity instanceof Player) {
             Player player = (Player) entity;
-            PetChangeExpEvent petEvent = new PetChangeExpEvent(player, pet, ExecuteType.REWARDS, ReceiveType.ADD, exp);
+            UUID uuid = player.getUniqueId();
+            PetChangeExpEvent petEvent = new PetChangeExpEvent(uuid, pet, ExecuteType.REWARDS, ReceiveType.ADD, exp);
             Bukkit.getPluginManager().callEvent(petEvent);
 
             if (petEvent.isCancelled()) {
@@ -193,7 +194,8 @@ public class RewardMethods {
     public static void setExp(LivingEntity entity, Pet pet, double exp) {
         if (entity instanceof Player) {
             Player player = (Player) entity;
-            PetChangeExpEvent petEvent = new PetChangeExpEvent(player, pet, ExecuteType.REWARDS, ReceiveType.SET, exp);
+            UUID uuid = player.getUniqueId();
+            PetChangeExpEvent petEvent = new PetChangeExpEvent(uuid, pet, ExecuteType.REWARDS, ReceiveType.SET, exp);
             Bukkit.getPluginManager().callEvent(petEvent);
 
             if (petEvent.isCancelled()) {
@@ -226,7 +228,8 @@ public class RewardMethods {
     public static void addLevel(LivingEntity entity, Pet pet, int level) {
         if (entity instanceof Player) {
             Player player = (Player) entity;
-            PetChangeLevelEvent petEvent = new PetChangeLevelEvent(player, pet, ExecuteType.REWARDS, ReceiveType.ADD, level);
+            UUID uuid = player.getUniqueId();
+            PetChangeLevelEvent petEvent = new PetChangeLevelEvent(uuid, pet, ExecuteType.REWARDS, ReceiveType.ADD, level);
             Bukkit.getPluginManager().callEvent(petEvent);
             int maxLevel = pet.getConfigPet().getUpgrades().getMaxLevel();
 
@@ -247,7 +250,8 @@ public class RewardMethods {
     public static void setLevel(LivingEntity entity, Pet pet, int level) {
         if (entity instanceof Player) {
             Player player = (Player) entity;
-            PetChangeLevelEvent petEvent = new PetChangeLevelEvent(player, pet, ExecuteType.REWARDS, ReceiveType.SET, level);
+            UUID uuid = player.getUniqueId();
+            PetChangeLevelEvent petEvent = new PetChangeLevelEvent(uuid, pet, ExecuteType.REWARDS, ReceiveType.SET, level);
             Bukkit.getPluginManager().callEvent(petEvent);
             int maxLevel = pet.getConfigPet().getUpgrades().getMaxLevel();
 

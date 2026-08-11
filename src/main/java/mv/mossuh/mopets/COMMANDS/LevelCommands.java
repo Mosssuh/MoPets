@@ -44,7 +44,7 @@ public class LevelCommands {
                         ItemStack itemStack = UtilMethods.getItemInHand(player);
                         Pet pet = Pet.getPet(itemStack);
                         if (pet.isPet()) {
-                            PetChangeLevelEvent event = new PetChangeLevelEvent(player, pet, ExecuteType.COMMAND, ReceiveType.ADD, amount);
+                            PetChangeLevelEvent event = new PetChangeLevelEvent(uuid, pet, ExecuteType.COMMAND, ReceiveType.ADD, amount);
                             Bukkit.getPluginManager().callEvent(event);
 
                             if (event.isCancelled()) { return; }
@@ -98,7 +98,7 @@ public class LevelCommands {
                         ItemStack itemStack = UtilMethods.getItemInHand(player);
                         Pet pet = Pet.getPet(itemStack);
                         if (pet.isPet()) {
-                            PetChangeLevelEvent event = new PetChangeLevelEvent(player, pet, ExecuteType.COMMAND, ReceiveType.SET, amount);
+                            PetChangeLevelEvent event = new PetChangeLevelEvent(uuid, pet, ExecuteType.COMMAND, ReceiveType.SET, amount);
                             Bukkit.getPluginManager().callEvent(event);
 
                             if (event.isCancelled()) { return; }

@@ -44,7 +44,7 @@ public class ExpCommands {
                         ItemStack itemStack = UtilMethods.getItemInHand(player);
                         Pet pet = Pet.getPet(itemStack);
                         if (pet.isPet()) {
-                            PetChangeExpEvent event = new PetChangeExpEvent(player, pet, ExecuteType.COMMAND, ReceiveType.ADD, amount);
+                            PetChangeExpEvent event = new PetChangeExpEvent(uuid, pet, ExecuteType.COMMAND, ReceiveType.ADD, amount);
                             Bukkit.getPluginManager().callEvent(event);
 
                             if (event.isCancelled()) { return; }
@@ -91,7 +91,7 @@ public class ExpCommands {
                         ItemStack itemStack = UtilMethods.getItemInHand(player);
                         Pet pet = Pet.getPet(itemStack);
                         if (pet.isPet()) {
-                            PetChangeExpEvent event = new PetChangeExpEvent(player, pet, ExecuteType.COMMAND, ReceiveType.SET, amount);
+                            PetChangeExpEvent event = new PetChangeExpEvent(uuid, pet, ExecuteType.COMMAND, ReceiveType.SET, amount);
                             Bukkit.getPluginManager().callEvent(event);
 
                             if (event.isCancelled()) { return; }
