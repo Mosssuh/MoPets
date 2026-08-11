@@ -71,6 +71,7 @@ public final class MoPets extends JavaPlugin {
 
     private void registerDetectors() {
         DetectorWithRepetitive.start(this);
+        getServer().getPluginManager().registerEvents(new DetectorWithCloseServer(), this);
         getServer().getPluginManager().registerEvents(new DetectorWithJoinQuit(), this);
         getServer().getPluginManager().registerEvents(new DetectorWithInventory(), this);
         getServer().getPluginManager().registerEvents(new DetectorWithItemEvents(), this);

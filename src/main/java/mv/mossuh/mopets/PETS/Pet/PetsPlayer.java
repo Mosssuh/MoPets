@@ -108,34 +108,6 @@ public class PetsPlayer {
         }
 
         setPets(copyPets);
-
-        /*
-        if (Config.MULTIPLE_PETS) {
-            List<Pet> copyPets = new ArrayList<>(pets);
-            Iterator<Pet> iterator = copyPets.iterator();
-            while (iterator.hasNext()) {
-                Pet p = iterator.next();
-                if (p.getPetUUID().equals(uuid)) {
-                    iterator.remove();
-                    break;
-                }
-            }
-
-            pets = UtilMethods.cleanConflicts(player, new ArrayList<>(copyPets));
-        } else {
-            Iterator<Pet> iterator = pets.iterator();
-            while (iterator.hasNext()) {
-                Pet p = iterator.next();
-                if (p.getPetUUID().equals(uuid)) {
-                    iterator.remove();
-                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, p, ChangePetType.DEACTIVATED);
-                    Bukkit.getPluginManager().callEvent(event);
-                    break;
-                }
-            }
-        }
-
-         */
     }
 
 
@@ -151,36 +123,6 @@ public class PetsPlayer {
         }
 
         setPets(copyPets);
-
-
-        /*
-        if (Config.MULTIPLE_PETS) {
-            List<Pet> copyPets = new ArrayList<>(pets);
-            Iterator<Pet> iterator = copyPets.iterator();
-            while (iterator.hasNext()) {
-                Pet p = iterator.next();
-                if (p.getPetUUID().equals(uuid)) {
-                    iterator.remove(); // Safely remove the element
-                    break;
-                }
-            }
-
-            pets = UtilMethods.cleanConflicts(player, new ArrayList<>(copyPets));
-        } else {
-            Iterator<Pet> iterator = pets.iterator();
-            while (iterator.hasNext()) {
-                Pet p = iterator.next();
-                if (p.getPetUUID() == petUUID) {
-                    iterator.remove();
-
-                    PlayerChangePetEvent event = new PlayerChangePetEvent(player, p, ChangePetType.DEACTIVATED);
-                    Bukkit.getPluginManager().callEvent(event);
-                    break;
-                }
-            }
-        }
-
-         */
     }
 
     public boolean hasPets() {
