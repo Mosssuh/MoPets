@@ -58,12 +58,10 @@ public class LevelCommands {
 
 
                             String name = UtilString.get(pet.getConfigPet().getItemInfo().getName()).hex().apply();
-                            UtilString.get(Messages.COMMAND_PET_ADD_LEVEL_RECEIVER).hex().replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(player);
-                            UtilString.get(Messages.COMMAND_PET_ADD_LEVEL_SENDER).hex().replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(sender);
+                            UtilString.get(Messages.COMMAND_PET_ADD_LEVEL_RECEIVER).replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).hex().sendMessage(player);
+                            UtilString.get(Messages.COMMAND_PET_ADD_LEVEL_SENDER).replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).hex().sendMessage(sender);
 
                             pet.addLevel(level);
                             pet.setCost(cost*level);
@@ -112,12 +110,10 @@ public class LevelCommands {
 
 
                             String name = UtilString.get(pet.getConfigPet().getItemInfo().getName()).hex().apply();
-                            UtilString.get(Messages.COMMAND_PET_SET_LEVEL_RECEIVER).hex().replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(player);
-                            UtilString.get(Messages.COMMAND_PET_SET_LEVEL_SENDER).hex().replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(sender);
+                            UtilString.get(Messages.COMMAND_PET_SET_LEVEL_RECEIVER).replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).hex().sendMessage(player);
+                            UtilString.get(Messages.COMMAND_PET_SET_LEVEL_SENDER).replaceString("%pet_name%", name).replaceString("%new_level%", level+"")
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).sendMessage(sender);
 
                             pet.setLevel(level);
                             pet.setCost(cost*level);

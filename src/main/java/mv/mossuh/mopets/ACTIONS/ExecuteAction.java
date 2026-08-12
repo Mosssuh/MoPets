@@ -15,12 +15,12 @@ import mv.mossuh.mocore.UTILITIES.ARGS.RewardArgs.RewardArgsType;
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
 import mv.mossuh.mocore.UTILITIES.Cooldown;
 import mv.mossuh.mocore.UTILITIES.REQUIREMENTS.EntityRequirement;
-import mv.mossuh.mopets.ACTIONS.RequirementsUtils.DefaultVariables;
+import mv.mossuh.mopets.UTILITIES.DefaultVariables;
 import mv.mossuh.mopets.CONFIGS.Config.Config;
 import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
 import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.UTILITIES.UtilString;
 import mv.mossuh.mopets.UTILITIES.MoArgs;
+import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -182,9 +182,8 @@ public class ExecuteAction {
                     } else if (moRequirement.isRequirement(RequirementType.EVAL)) {
                         RequirementEval requirement = (RequirementEval) moRequirement.getRequirement();
                         for (String eval : requirement.getRequirements()) {
-                            boolean condition = UtilString.get(eval).hex().setVariables(variables).setVariables(actionVariables)
-                                    .setDefaultNumberRandomVariable().setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setTimeFormatter().evaluateString();
+                            boolean condition = UtilString.get(eval).setVariables(variables).setVariables(actionVariables)
+                                    .setPlaceholders(uuid).setTimeFormatter().hex().evaluateString();
                             if (condition) {
                                 requirementsAccepted = requirementsAccepted + 1;
                                 break;
@@ -197,8 +196,8 @@ public class ExecuteAction {
             if (cooldown.isCooldown()) {
                 if (Cooldown.startAndIsOnCooldown(cooldownCode, cooldownInSeconds)) {
                     if (!cooldown.isByPass()) {
-                        UtilString.get(cooldown.getMessage()).hex().setVariables(variables).setVariables(actionVariables).setDefaultNumberRandomVariable().setPlaceholders(uuid)
-                                .setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().sendMessage(player);
+                        UtilString.get(cooldown.getMessage()).setVariables(variables).setVariables(actionVariables)
+                                .setPlaceholders(uuid).setTimeFormatter().hex().sendMessage(player);
                         return this;
                     }
                 }

@@ -147,7 +147,7 @@ public class ConfigsManager {
                             for (String boosterSection : config.getConfigurationSection("Pets." + code + ".actions.boosters").getKeys(false)) {
                                 MultiplierType multiplierType = UtilMethods.getMultiplierType(config.getString("Pets." + code + ".actions.boosters." + boosterSection + ".multiplier"));
                                 BoosterType boosterType = mv.mossuh.moboosters.UTILITIES.UtilMethods.getBoosterType(config.getString("Pets." + code + ".actions.boosters." + boosterSection + ".type"));
-                                ApplicatorType applicatorType = mv.mossuh.moboosters.UTILITIES.UtilMethods.getApplicatorType(config.getString("Pets." + code + ".actions.boosters." + boosterSection + ".applicator"));
+                                ApplicatorType applicatorType = ApplicatorType.convert(config.getString("Pets." + code + ".actions.boosters." + boosterSection + ".applicator"));
                                 String boosted = config.getString("Pets." + code + ".actions.boosters." + boosterSection + ".boosted");
                                 Double boost = config.getDouble("Pets." + code + ".actions.boosters." + boosterSection + ".boost");
 

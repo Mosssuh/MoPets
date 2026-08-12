@@ -118,8 +118,7 @@ public class PetCreator {
         variables.add(new VariableArg("%progress_percentage%", progressPercentage));
 
         if (itemInfo.hasName()) {
-            String name = UtilString.get(itemInfo.getName()).hex().setDefaultNumberRandomVariable().setArgs(args).setVariables(variables).setDefaultVariables(configPet).setPlaceholders(uuid)
-                    .setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().apply();
+            String name = UtilString.get(itemInfo.getName()).setArgs(args).setVariables(variables).setVariables(configPet).setPlaceholders(uuid).setTimeFormatter().hex().apply();
             itemMeta.setDisplayName(name);
         }
         if (itemInfo.hasLore()) {
@@ -129,13 +128,13 @@ public class PetCreator {
                     List<String> progressMessage = configPet.getUpgrades().getProgressMessage();
                     if (!progressMessage.isEmpty()) {
                         for (String pLine : progressMessage) {
-                            lore.add(UtilString.get(pLine).hex().setDefaultNumberRandomVariable().setArgs(args).setVariables(variables).setDefaultVariables(configPet)
-                                    .setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().apply());
+                            lore.add(UtilString.get(pLine).setArgs(args).setVariables(variables).setVariables(configPet)
+                                    .setPlaceholders(uuid).setTimeFormatter().hex().apply());
                         }
                     }
                 } else {
-                    lore.add(UtilString.get(line).hex().setDefaultNumberRandomVariable().setArgs(args).setVariables(variables)
-                            .setDefaultVariables(configPet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().apply());
+                    lore.add(UtilString.get(line).setArgs(args).setVariables(variables)
+                            .setVariables(configPet).setPlaceholders(uuid).setTimeFormatter().hex().apply());
                 }
             }
             itemMeta.setLore(lore);
@@ -228,8 +227,7 @@ public class PetCreator {
         variables.add(new VariableArg("%progress_percentage%", progressPercentage));
 
         if (itemInfo.hasName()) {
-            String name = UtilString.get(itemInfo.getName()).hex().setDefaultNumberRandomVariable().setArgs(args).setVariables(variables).setDefaultVariables(configPet)
-                    .setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().apply();
+            String name = UtilString.get(itemInfo.getName()).setArgs(args).setVariables(variables).setVariables(configPet).setPlaceholders(uuid).setTimeFormatter().hex().apply();
             itemMeta.setDisplayName(name);
         }
         if (itemInfo.hasLore()) {
@@ -239,13 +237,13 @@ public class PetCreator {
                     List<String> progressMessage = configPet.getUpgrades().getProgressMessage();
                     if (!progressMessage.isEmpty()) {
                         for (String pLine : progressMessage) {
-                            lore.add(UtilString.get(pLine).hex().setDefaultNumberRandomVariable().setArgs(args).setVariables(variables).setDefaultVariables(configPet)
-                                    .setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().apply());
+                            lore.add(UtilString.get(pLine).setArgs(args).setVariables(variables).setVariables(configPet)
+                                    .setPlaceholders(uuid).setTimeFormatter().hex().apply());
                         }
                     }
                 } else {
-                    lore.add(UtilString.get(line).hex().setDefaultNumberRandomVariable().setArgs(args).setVariables(variables).setDefaultVariables(configPet).setPlaceholders(uuid)
-                            .setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().apply());
+                    lore.add(UtilString.get(line).setArgs(args).setVariables(variables)
+                            .setVariables(configPet).setPlaceholders(uuid).setTimeFormatter().hex().apply());
                 }
             }
             itemMeta.setLore(lore);

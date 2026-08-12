@@ -1,11 +1,11 @@
-package mv.mossuh.mopets.ACTIONS.RequirementsUtils;
+package mv.mossuh.mopets.UTILITIES;
 
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
+import mv.mossuh.mocore.UTILITIES.UsefulMethods;
 import mv.mossuh.mocore.VERSION.ServerVersion;
 import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
 import mv.mossuh.mopets.CONFIGS.Pets.PetIdentifier;
 import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -178,6 +178,31 @@ public class DefaultVariables {
             variables.add(new VariableArg("%entity_z%", location.getBlockZ() + ""));
             variables.add(new VariableArg("%entity_world%", location.getWorld().getName()));
         }
+        return variables;
+    }
+
+    public static List<VariableArg> configPet(ConfigPet config) {
+        List<VariableArg> variables = new ArrayList<>();
+        if (config == null || !config.isConfigPet()) return variables;
+        PetIdentifier petIdentifier = config.getPetIdentifier();
+        String code = petIdentifier.getCode();
+        String tags = petIdentifier.getTagsAsString();
+        String level = "1";
+        String exp = "0";
+        String cost = UsefulMethods.formatNumber(config.getUpgrades().getCostPerLevel(), 2);
+        int maxLevel = config.getUpgrades().getMaxLevel();
+
+        variables.add(new VariableArg("%level%", level));
+        variables.add(new VariableArg("%exp%", exp));
+        variables.add(new VariableArg("%cost%", cost));
+        variables.add(new VariableArg("%max_level%", maxLevel+""));
+        variables.add(new VariableArg("%tags%", tags));
+        variables.add(new VariableArg("%code%", code));
+        variables.add(new VariableArg("%level%", level));
+        for (VariableArg v : config.getPetIdentifier().getDefaultVariables()) {
+            variables.add(new VariableArg("%variable_{" + v.getVariable() + "}%", v.getValue()));
+        }
+
         return variables;
     }
 }

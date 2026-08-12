@@ -15,12 +15,12 @@ import mv.mossuh.mocore.UTILITIES.ARGS.RewardArgs.RewardArgsType;
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
 import mv.mossuh.mocore.UTILITIES.Cooldown;
 import mv.mossuh.mocore.UTILITIES.REQUIREMENTS.EntityRequirement;
-import mv.mossuh.mopets.ACTIONS.RequirementsUtils.DefaultVariables;
+import mv.mossuh.mopets.UTILITIES.DefaultVariables;
 import mv.mossuh.mopets.CONFIGS.Config.Config;
 import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
 import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.UTILITIES.UtilString;
 import mv.mossuh.mopets.UTILITIES.MoArgs;
+import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -133,12 +133,9 @@ public class Requirements {
                     MoCooldown cooldown = vAction.getCooldown();
                     EventType requirementEventType = vAction.getEventType();
                     // if (requirementEventType.equals(eventType) || requirementEventType.equals(EventType.NONE)) {
-                    if (requirementEventType.equals(eventType)) {
+                    if (requirementEventType == eventType) {
                         MoRequirements requirements = vAction.getRequirements();
                         List<MoRequirement> requirementsList = requirements.getRequirements();
-
-                        int requirementsAmount = requirementsList.size();
-                        int requirementsAccepted = 0;
 
                         List<VariableArg> actionVariables = new ArrayList<>();
                         String cooldownCode = Config.PLUGIN_NAME+"::"+petUUID+"::"+actionName;
@@ -147,8 +144,7 @@ public class Requirements {
                         if (cooldown.isCooldown()) {
                             if (Cooldown.startAndIsOnCooldown(cooldownCode, cooldownInSeconds)) {
                                 if (!cooldown.isByPass()) {
-                                    UtilString.get(cooldown.getMessage()).hex().setVariables(variables).setVariables(actionVariables).setDefaultNumberRandomVariable().setPlaceholders(uuid)
-                                            .setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().sendMessage(player);
+                                    UtilString.get(cooldown.getMessage()).setVariables(variables).setVariables(actionVariables).setPlaceholders(uuid).setTimeFormatter().hex().sendMessage(player);
                                     continue;
                                 }
                             }
@@ -157,8 +153,11 @@ public class Requirements {
                         actionVariables.add(new VariableArg("%cooldown%", Cooldown.showCooldownInSeconds(cooldownCode, cooldownInSeconds)));
                         actionVariables.add(new VariableArg("%cooldown_formatted%", Cooldown.showCooldownFormatted(cooldownCode, cooldownInSeconds, Config.TIME_FORMAT)));
 
+                        boolean isAccepted = true;
                         if (!requirementsList.isEmpty()) {
                             for (MoRequirement moRequirement : requirementsList) {
+                                boolean requirementAccepted = false;
+
                                 if (moRequirement.isRequirement(RequirementType.EVENT)) {
                                     RequirementEvent requirementEvent = (RequirementEvent) moRequirement.getRequirement();
                                     List<EntityRequirement> entityRequirementList = requirementEvent.getRequirements();
@@ -167,47 +166,46 @@ public class Requirements {
                                         if (requirementEvent.hasRequirements()) {
                                             String entity = VariableArg.getValue(variables, "%event_entity%");
                                             String data = VariableArg.getValue(variables, "%event_data%");
-                                            if (EntityRequirement.containsEntity(entityRequirementList, entity, data)) {
-                                                requirementsAccepted = requirementsAccepted + 1;
-                                            }
+                                            requirementAccepted = EntityRequirement.containsEntity(entityRequirementList, entity, data);
                                         } else {
-                                            requirementsAccepted = requirementsAccepted + 1;
+                                            requirementAccepted = true;
                                         }
                                     } else {
-                                        if (requirementEventType.equals(eventType)) {
-                                            requirementsAccepted = requirementsAccepted + 1;
-                                        }
+                                        requirementAccepted = requirementEventType == eventType;
                                     }
                                 } else if (moRequirement.isRequirement(RequirementType.EVAL)) {
                                     RequirementEval requirement = (RequirementEval) moRequirement.getRequirement();
                                     for (String eval : requirement.getRequirements()) {
-                                        boolean condition = UtilString.get(eval).hex().setVariables(variables).setVariables(actionVariables)
-                                                .setDefaultNumberRandomVariable().setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                                .setTimeFormatter().evaluateString();
+                                        boolean condition = UtilString.get(eval).setVariables(variables).setVariables(actionVariables)
+                                                .setPlaceholders(uuid).setTimeFormatter().evaluateString();
 
                                         if (condition) {
-                                            requirementsAccepted = requirementsAccepted + 1;
+                                            requirementAccepted = true;
                                             break;
                                         }
                                     }
                                 }
+
+                                if (!requirementAccepted) {
+                                    isAccepted = false;
+                                    break;
+                                }
                             }
                         }
 
-                        if (requirementsAccepted == requirementsAmount) {
-                            MoRewards vRewards = new MoRewards(vAction.getRewards().getRewards(), null);
-                            vRewards.addVariables(actionVariables);
-                            approvedRewards.add(vRewards);
+                        MoRewards vRewards;
+                        if (isAccepted) {
+                            vRewards = new MoRewards(vAction.getRewards().getRewards(), null);
                         } else {
-                            MoRewards vRewards = new MoRewards(vAction.getElseRewards().getRewards(), null);
-                            vRewards.addVariables(actionVariables);
-                            approvedRewards.add(vRewards);
+                            vRewards = new MoRewards(vAction.getElseRewards().getRewards(), null);
                         }
+                        vRewards.addVariables(actionVariables);
+                        approvedRewards.add(vRewards);
                     }
                 }
             }
         }
-        actionResult = new ActionResult(event, eventType, player, pet, args, variables, approvedRewards);
+        actionResult = new mv.mossuh.mopets.ACTIONS.ActionResult(event, eventType, player, pet, args, variables, approvedRewards);
         return this;
     }
 

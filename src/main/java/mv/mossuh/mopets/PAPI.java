@@ -315,7 +315,7 @@ public class PAPI extends PlaceholderExpansion {
 
             if (valueSplit1.length == 4) {
                 BoosterType boosterType = UtilMethods.getBoosterType(valueSplit1[0]);
-                ApplicatorType applicatorType = UtilMethods.getApplicatorType(valueSplit1[1]);
+                ApplicatorType applicatorType = ApplicatorType.convert(valueSplit1[1]);
                 String boosted = valueSplit1[2];
                 BoosterIdentifier boosterIdentifier = new BoosterIdentifier(Config.PLUGIN_NAME, boosterType, applicatorType, boosted);
                 String code = valueSplit1[3];
@@ -332,7 +332,7 @@ public class PAPI extends PlaceholderExpansion {
                 }
             } else if (valueSplit1.length == 3) {
                 BoosterType boosterType = UtilMethods.getBoosterType(valueSplit1[0]);
-                ApplicatorType applicatorType = UtilMethods.getApplicatorType(valueSplit1[1]);
+                ApplicatorType applicatorType = ApplicatorType.convert(valueSplit1[1]);
                 String boosted = valueSplit1[2];
                 BoosterIdentifier boosterIdentifier = new BoosterIdentifier(Config.PLUGIN_NAME, boosterType, applicatorType, boosted);
                 if (petsPlayer.isPlayer() && petsPlayer.hasPets()) {
@@ -352,7 +352,7 @@ public class PAPI extends PlaceholderExpansion {
             String[] valueSplit1 = placeholder.replace("active_boost_", "").split("_", 4);
             if (valueSplit1.length == 4) {
                 BoosterType boosterType = UtilMethods.getBoosterType(valueSplit1[0]);
-                ApplicatorType applicatorType = UtilMethods.getApplicatorType(valueSplit1[1]);
+                ApplicatorType applicatorType = ApplicatorType.convert(valueSplit1[1]);
                 String boosted = valueSplit1[2];
                 BoosterIdentifier boosterIdentifier = new BoosterIdentifier(Config.PLUGIN_NAME, boosterType, applicatorType, boosted);
                 String code = valueSplit1[3];
@@ -368,7 +368,7 @@ public class PAPI extends PlaceholderExpansion {
                 }
             } else if (valueSplit1.length == 3) {
                 BoosterType boosterType = UtilMethods.getBoosterType(valueSplit1[0]);
-                ApplicatorType applicatorType = UtilMethods.getApplicatorType(valueSplit1[1]);
+                ApplicatorType applicatorType = ApplicatorType.convert(valueSplit1[1]);
                 String boosted = valueSplit1[2];
                 BoosterIdentifier boosterIdentifier = new BoosterIdentifier(Config.PLUGIN_NAME, boosterType, applicatorType, boosted);
 

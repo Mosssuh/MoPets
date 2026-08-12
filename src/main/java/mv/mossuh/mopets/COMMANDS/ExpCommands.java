@@ -53,11 +53,9 @@ public class ExpCommands {
 
                             String name = UtilString.get(pet.getConfigPet().getItemInfo().getName()).hex().apply();
                             UtilString.get(Messages.COMMAND_PET_ADD_EXP_RECEIVER).hex().replaceString("%pet_name%", name).replaceString("%new_exp%", exp+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(player);
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).sendMessage(player);
                             UtilString.get(Messages.COMMAND_PET_ADD_EXP_SENDER).hex().replaceString("%pet_name%", name).replaceString("%new_exp%", exp+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(sender);
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).sendMessage(sender);
 
                             pet.addExp(exp);
                             PetUpdater.verifyPet(player, pet, true);
@@ -100,11 +98,9 @@ public class ExpCommands {
 
                             String name = UtilString.get(pet.getConfigPet().getItemInfo().getName()).hex().apply();
                             UtilString.get(Messages.COMMAND_PET_SET_EXP_RECEIVER).hex().replaceString("%pet_name%", name).replaceString("%new_exp%", exp+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(player);
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).sendMessage(player);
                             UtilString.get(Messages.COMMAND_PET_SET_EXP_SENDER).hex().replaceString("%pet_name%", name).replaceString("%new_exp%", exp+"")
-                                    .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder()
-                                    .setDefaultPlayerVariables(player).sendMessage(sender);
+                                    .setVariables(pet).setVariables(player).setPlaceholders(uuid).sendMessage(sender);
 
                             pet.setExp(exp);
                             PetUpdater.verifyPet(player, pet, true);

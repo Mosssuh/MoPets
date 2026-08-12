@@ -75,9 +75,8 @@ public class PetUpdater {
 
 
                         if (itemInfo.hasName()) {
-                            String name = UtilString.get(itemInfo.getName()).hex().setDefaultNumberRandomVariable().setDefaultVariables(pet)
-                                    .setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter()
-                                    .setVariables(variables).apply();
+                            String name = UtilString.get(itemInfo.getName()).setVariables(pet).setVariables(variables)
+                                    .setPlaceholders(uuid).setTimeFormatter().hex().apply();
                             itemMeta.setDisplayName(name);
                         }
 
@@ -88,14 +87,12 @@ public class PetUpdater {
                                     List<String> progressMessage = configPet.getUpgrades().getProgressMessage();
                                     if (!progressMessage.isEmpty()) {
                                         for (String pLine : progressMessage) {
-                                            lore.add(UtilString.get(pLine).hex().setDefaultNumberRandomVariable().setDefaultVariables(pet)
-                                                    .setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter()
-                                                    .setVariables(variables).apply());
+                                            lore.add(UtilString.get(pLine).setVariables(pet).setVariables(variables).setPlaceholders(uuid)
+                                                    .setTimeFormatter().hex().apply());
                                         }
                                     }
                                 } else {
-                                    lore.add(UtilString.get(line).hex().setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid)
-                                            .setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().setVariables(variables).apply());
+                                    lore.add(UtilString.get(line).setVariables(pet).setVariables(variables).setPlaceholders(uuid).setTimeFormatter().hex().apply());
                                 }
                             }
                             itemMeta.setLore(lore);
@@ -108,8 +105,8 @@ public class PetUpdater {
                         ItemInfo itemInfo = configPet.getItemInfo();
 
                         if (itemInfo.hasName()) {
-                            String name = UtilString.get(itemInfo.getName()).hex().setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder()
-                                    .setMathPlaceholder().setTimeFormatter().setVariables(variables).apply();
+                            String name = UtilString.get(itemInfo.getName()).setVariables(pet).setVariables(variables)
+                                    .setPlaceholders(uuid).setTimeFormatter().hex().apply();
                             itemMeta.setDisplayName(name);
                         }
 
@@ -120,15 +117,13 @@ public class PetUpdater {
                                     List<String> progressMaxedMessage = configPet.getUpgrades().getMaxedProgressMessage();
                                     if (!progressMaxedMessage.isEmpty()) {
                                         for (String pLine : progressMaxedMessage) {
-                                            lore.add(UtilString.get(pLine).hex().setDefaultNumberRandomVariable().setDefaultVariables(pet)
-                                                    .setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter()
-                                                    .setVariables(variables).apply());
+                                            lore.add(UtilString.get(pLine).setVariables(pet).setVariables(variables)
+                                                    .setPlaceholders(uuid).setTimeFormatter().hex().apply());
                                         }
                                     }
                                 } else {
-                                    lore.add(UtilString.get(line).hex().setDefaultNumberRandomVariable().setDefaultVariables(pet)
-                                            .setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter()
-                                            .setVariables(variables).apply());
+                                    lore.add(UtilString.get(line).setVariables(pet).setVariables(variables)
+                                            .setPlaceholders(uuid).setTimeFormatter().hex().apply());
                                 }
                             }
                             itemMeta.setLore(lore);
@@ -177,8 +172,8 @@ public class PetUpdater {
                     obtainedExp = pet.getExp();
                     obtainedCost = pet.getCost();
 
-                    UtilString.get(Messages.PET_LEVEL_UP).hex().replaceString("%item_name%", name)
-                            .setDefaultNumberRandomVariable().setDefaultVariables(pet).setPlaceholders(uuid).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().sendMessage(player);
+                    UtilString.get(Messages.PET_LEVEL_UP).replaceString("%item_name%", name)
+                            .setVariables(pet).setPlaceholders(uuid).setTimeFormatter().hex().sendMessage(player);
                 }
             }
         }

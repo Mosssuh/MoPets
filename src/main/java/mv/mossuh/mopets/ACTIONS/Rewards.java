@@ -20,8 +20,8 @@ import mv.mossuh.mopets.ACTIONS.RewardsUtils.VariableSeparator;
 import mv.mossuh.mopets.CONFIGS.Pets.Actions.Actions;
 import mv.mossuh.mopets.PETS.Pet.Pet;
 import mv.mossuh.mopets.UTILITIES.UtilMethods;
-import mv.mossuh.mopets.UTILITIES.UtilString;
 import mv.mossuh.mopets.UTILITIES.MoArgs;
+import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -132,15 +132,15 @@ public class Rewards {
                                     RewardReceiver rewardReceiver = randomSelectedReward.getRewardReceiver();
                                     RewardReceiverType rewardReceiverType = rewardReceiver.getRewardReceiverType();
                                     String reward = null;
-                                    if (rewardReceiverType.equals(RewardReceiverType.TARGET)) {
-                                        if (rewardArgsType.equals(RewardArgsType.LIVING_ENTITY)) {
+                                    if (rewardReceiverType == RewardReceiverType.TARGET) {
+                                        if (rewardArgsType == RewardArgsType.LIVING_ENTITY) {
                                             entityReceiver = rewardArgs.getLivingEntity();
                                         }
                                         location = rewardArgs.getLocation();
-                                    } else if (rewardReceiverType.equals(RewardReceiverType.PLACEHOLDER)) {
+                                    } else if (rewardReceiverType == RewardReceiverType.PLACEHOLDER) {
                                         if (rewardReceiver.hasRewardReceiver()) {
-                                            String rewardReceiverString = UtilString.get(rewardReceiver.getRewardReceiver()).setDefaultNumberRandomVariable().setVariables(variables)
-                                                    .setVariables(actionVariables).setPlaceholders(player).setChangeOutputPlaceholder().setMathPlaceholder().setTimeFormatter().apply();
+                                            String rewardReceiverString = UtilString.get(rewardReceiver.getRewardReceiver()).setVariables(variables)
+                                                    .setVariables(actionVariables).setPlaceholders(player).setTimeFormatter().apply();
                                             Player rewardPlayer = Bukkit.getPlayer(rewardReceiverString);
                                             if (rewardPlayer != null && rewardPlayer.isOnline()) {
                                                 entityReceiver = rewardPlayer;
@@ -151,9 +151,8 @@ public class Rewards {
                                         entityReceiver = player;
                                         location = player.getLocation();
                                     }
-                                    reward = UtilString.get(randomSelectedReward.getReward()).hex().setDefaultNumberRandomVariable()
-                                            .setVariables(variables).setVariables(actionVariables).setPlaceholders(player).setChangeOutputPlaceholder().setMathPlaceholder()
-                                            .setTimeFormatter().apply();
+                                    reward = UtilString.get(randomSelectedReward.getReward()).setVariables(variables).setVariables(actionVariables)
+                                            .setPlaceholders(player).setTimeFormatter().hex().apply();
 
                                     EntityType entityReceiverType = EntityType.UNKNOWN;
                                     if (entityReceiver != null) {
@@ -197,7 +196,7 @@ public class Rewards {
                                         } else if (rewardType.equals(RewardType.CANCEL_EVENT)) {
                                             cancelEvent = true;
                                         } else if (rewardType.equals(RewardType.EXECUTE_ACTION)) {
-                                            if (entityReceiverType.equals(EntityType.PLAYER)) {
+                                            if (entityReceiverType == EntityType.PLAYER) {
                                                 MoAction rewardAction = actions.getDefaultActions().getAction(reward);
                                                 ExecuteAction executeAction = new ExecuteAction(rewardAction, event, eventType, (Player) entityReceiver, pet, args)
                                                         .addVariables(variables).check();
@@ -216,81 +215,61 @@ public class Rewards {
                                         }
                                     }
 
-                                    if (executePetRewards) {
-                                        Pet petReceiver = new Pet(null, null, null, null, null, null, null);
-                                        if (rewardReceiverType.equals(RewardReceiverType.TARGET)) {
-                                            if (rewardArgsType.equals(RewardArgsType.ITEMSTACK)) {
+                                    if (executePetRewards || executeVariableRewards) {
+                                        Pet petReceiver = pet;
+                                        if (rewardReceiverType == RewardReceiverType.TARGET) {
+                                            petReceiver = new Pet(null, null, null, null, null, null, null);
+                                            if (rewardArgsType == RewardArgsType.ITEMSTACK) {
                                                 ItemStack itemStackReceiver = rewardArgs.getItemStack();
                                                 Pet petReceiverFromArg = Pet.getPet(itemStackReceiver);
                                                 if (petReceiverFromArg.isPet()) {
                                                     petReceiver = petReceiverFromArg;
                                                 }
                                             }
-                                        } else {
-                                            petReceiver = pet;
                                         }
 
                                         if (petReceiver.isPet()) {
-                                            if (rewardType.equals(RewardType.ADD_EXP)) {
-                                                if (UtilString.get(reward).isNumeric()) {
-                                                    double exp = Double.parseDouble(reward);
-                                                    RewardMethods.addExp(player, petReceiver, exp);
-                                                }
-                                            } else if (rewardType.equals(RewardType.SET_EXP)) {
-                                                if (UtilString.get(reward).isNumeric()) {
-                                                    double exp = Double.parseDouble(reward);
-                                                    RewardMethods.setExp(player, petReceiver, exp);
-                                                }
-                                            } else if (rewardType.equals(RewardType.ADD_LEVEL)) {
-                                                if (UtilString.get(reward).isNumeric()) {
-                                                    int levelReward = Integer.parseInt(reward);
-                                                    RewardMethods.addLevel(player, petReceiver, levelReward);
-                                                }
-                                            } else if (rewardType.equals(RewardType.SET_LEVEL)) {
-                                                if (UtilString.get(reward).isNumeric()) {
-                                                    int levelReward = Integer.parseInt(reward);
-                                                    RewardMethods.setLevel(player, petReceiver, levelReward);
-                                                }
-                                            } else if (rewardType.equals(RewardType.REMOVE_EXP)) {
-                                                if (UtilString.get(reward).isNumeric()) {
-                                                    double exp = Double.parseDouble(reward);
-                                                    RewardMethods.removeExp(player, petReceiver, exp);
-                                                }
-                                            } else if (rewardType.equals(RewardType.REMOVE_LEVEL)) {
-                                                if (UtilString.get(reward).isNumeric()) {
-                                                    int levelReward = Integer.parseInt(reward);
-                                                    RewardMethods.removeLevel(player, petReceiver, levelReward);
+                                            if (executePetRewards) {
+                                                if (rewardType.equals(RewardType.ADD_EXP)) {
+                                                    if (UtilString.get(reward).isNumeric()) {
+                                                        RewardMethods.addExp(player, petReceiver, Double.parseDouble(reward));
+                                                    }
+                                                } else if (rewardType.equals(RewardType.SET_EXP)) {
+                                                    if (UtilString.get(reward).isNumeric()) {
+                                                        RewardMethods.setExp(player, petReceiver, Double.parseDouble(reward));
+                                                    }
+                                                } else if (rewardType.equals(RewardType.ADD_LEVEL)) {
+                                                    if (UtilString.get(reward).isNumeric()) {
+                                                        RewardMethods.addLevel(player, petReceiver, Integer.parseInt(reward));
+                                                    }
+                                                } else if (rewardType.equals(RewardType.SET_LEVEL)) {
+                                                    if (UtilString.get(reward).isNumeric()) {
+                                                        RewardMethods.setLevel(player, petReceiver, Integer.parseInt(reward));
+                                                    }
+                                                } else if (rewardType.equals(RewardType.REMOVE_EXP)) {
+                                                    if (UtilString.get(reward).isNumeric()) {
+                                                        RewardMethods.removeExp(player, petReceiver, Double.parseDouble(reward));
+                                                    }
+                                                } else if (rewardType.equals(RewardType.REMOVE_LEVEL)) {
+                                                    if (UtilString.get(reward).isNumeric()) {
+                                                        RewardMethods.removeLevel(player, petReceiver, Integer.parseInt(reward));
+                                                    }
                                                 }
                                             }
-                                        }
-                                    }
 
-                                    if (executeVariableRewards) {
-                                        Pet petReceiver = new Pet(null, null, null, null, null, null, null);
-                                        if (rewardReceiverType.equals(RewardReceiverType.TARGET)) {
-                                            if (rewardArgsType.equals(RewardArgsType.ITEMSTACK)) {
-                                                ItemStack itemStackReceiver = rewardArgs.getItemStack();
-                                                Pet petReceiverFromArg = Pet.getPet(itemStackReceiver);
-                                                if (petReceiverFromArg.isPet()) {
-                                                    petReceiver = petReceiverFromArg;
-                                                }
-                                            }
-                                        } else {
-                                            petReceiver = pet;
-                                        }
-
-                                        if (petReceiver.isPet()) {
-                                            if (rewardType.equals(RewardType.SET_VARIABLE)) {
-                                                VariableSeparator vs = new VariableSeparator(reward, true);
-                                                VariableArg variable = vs.getVariable();
-                                                if (variable.isVariable() && variable.isValue()) {
-                                                    RewardMethods.setVariable(player, petReceiver, variable);
-                                                }
-                                            } else if (rewardType.equals(RewardType.REMOVE_VARIABLE)) {
-                                                VariableSeparator vs = new VariableSeparator(reward, false);
-                                                VariableArg variable = vs.getVariable();
-                                                if (variable.isVariable()) {
-                                                    RewardMethods.removeVariable(player, petReceiver, variable.getVariable());
+                                            if (executeVariableRewards) {
+                                                if (rewardType == RewardType.SET_VARIABLE) {
+                                                    VariableSeparator vs = new VariableSeparator(reward, true);
+                                                    VariableArg variable = vs.getVariable();
+                                                    if (variable.isVariable() && variable.isValue()) {
+                                                        RewardMethods.setVariable(player, petReceiver, variable);
+                                                    }
+                                                } else if (rewardType == RewardType.REMOVE_VARIABLE) {
+                                                    VariableSeparator vs = new VariableSeparator(reward, false);
+                                                    VariableArg variable = vs.getVariable();
+                                                    if (variable.isVariable()) {
+                                                        RewardMethods.removeVariable(player, petReceiver, variable.getVariable());
+                                                    }
                                                 }
                                             }
                                         }
