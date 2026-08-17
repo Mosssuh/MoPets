@@ -200,15 +200,9 @@ public class Rewards {
                                                 MoAction rewardAction = actions.getDefaultActions().getAction(reward);
                                                 ExecuteAction executeAction = new ExecuteAction(rewardAction, event, eventType, (Player) entityReceiver, pet, args)
                                                         .addVariables(variables).check();
-                                                if (executeAction.cancelEvent()) {
-                                                    this.cancelEvent = true;
-                                                }
-                                                if (executeAction.cancelDrops()) {
-                                                    this.cancelDrops = true;
-                                                }
-                                                if (executeAction.cancelMessage()) {
-                                                    this.cancelMessage = true;
-                                                }
+                                                if (executeAction.cancelEvent()) { this.cancelEvent = true; }
+                                                if (executeAction.cancelDrops()) { this.cancelDrops = true; }
+                                                if (executeAction.cancelMessage()) { this.cancelMessage = true; }
                                             }
                                         } else if (rewardType.equals(RewardType.CANCEL_MESSAGE)) {
                                             cancelMessage = true;
