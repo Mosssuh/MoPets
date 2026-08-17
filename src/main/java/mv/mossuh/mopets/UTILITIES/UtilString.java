@@ -29,7 +29,7 @@ public class UtilString extends UsefulString<UtilString> {
     }
 
     public UtilString setVariables(Pet pet) {
-        if (isString()) return this;
+        if (!isString()) return this;
         if (pet == null || !pet.isPet()) return this;
         List<VariableArg> variables = DefaultVariables.pet(pet);
         setVariables(variables);
@@ -37,7 +37,7 @@ public class UtilString extends UsefulString<UtilString> {
     }
 
     public UtilString setVariables(ConfigPet config) {
-        if (isString()) return this;
+        if (!isString()) return this;
         if (config == null || !config.isConfigPet()) return this;
         List<VariableArg> variables = DefaultVariables.configPet(config);
         setVariables(variables);
@@ -45,6 +45,7 @@ public class UtilString extends UsefulString<UtilString> {
     }
 
     public UtilString setTimeFormatter() {
+        if (!isString()) return this;
         setTimeFormatter(Config.TIME_FORMAT);
         return this;
     }

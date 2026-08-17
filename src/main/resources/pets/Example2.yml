@@ -1,10 +1,4 @@
 Pets:
-  GoldenApple:
-    item-info:
-      material: GOLDEN_APPLE
-  Mutton:
-    item-info:
-      material: MUTTON
   KranPet:
     tags: Kran, Pet, Combat
     variables:
@@ -18,8 +12,8 @@ Pets:
         maxed-progress:
           - '&c&lMAXED PET'
     exp:
-      BLOCK_BREAK:
-        - 'ALL -> 1'
+      PLAYER_KILLS:
+        - 'ALL -> 5'
     item-info:
       material: basehead-eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2M1OWVhZDAxZDk3OTIxY2ZmODk3MjlhMjg0YTljNGY1MTcyZDZiZjZmNmRkYjUzMTg0NzMyODlmMGU3YmZkYyJ9fX0=
       data: 0
@@ -38,7 +32,7 @@ Pets:
         - '&cRequires 1000 killed sheeps to use this ability.'
         - ''
         - '&dRegenerator'
-        - '&7When you attack you have &c%math_%level%*0.025%% &8to'
+        - '&7When you attack you have &c%math_%level%*0.025%% &7to'
         - '&7to receive regeneration.'
         - ''
         - '&8Killing sheep give you double xp and extra mutton.'
@@ -55,9 +49,7 @@ Pets:
             - '[CHANCE -> 100] MESSAGE -> &c&lKRAN! &aYou killed a sheep!.'
             - '[CHANCE -> 100] ADD_EXP -> 5'
             - '[CHANCE -> 100] SET_VARIABLE -> killed_sheeps::%math_%variable_{killed_sheeps}%+1%'
-            - '[CHANCE -> 100] CANCEL_DROPS'
             - '[CHANCE -> 100] WORLD_DROP:TARGET -> Mutton[%rng_1,3%]'
-
         GoldenAbility:
           event: PLAYER_KILLS
           requirements:
@@ -77,7 +69,6 @@ Pets:
           cancel_action: true
           rewards:
             - '[CHANCE -> 50] WORLD_DROP:TARGET -> GoldenApple[1]'
-
         Venom:
           event: PLAYER_ATTACK
           requirements:
@@ -85,7 +76,6 @@ Pets:
             - '[eval] %variable_{killed_sheeps}% >= 1000'
           rewards:
             - '[chance -> 2.5] EFFECT:TARGET -> POISON::3::1'
-
         RegeneratorOne:
           event: PLAYER_ATTACK
           requirements:

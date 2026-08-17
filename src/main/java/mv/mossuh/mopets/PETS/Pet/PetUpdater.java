@@ -172,7 +172,7 @@ public class PetUpdater {
                     obtainedExp = pet.getExp();
                     obtainedCost = pet.getCost();
 
-                    UtilString.get(Messages.PET_LEVEL_UP).replaceString("%item_name%", name)
+                    UtilString.get(Messages.PET_LEVEL_UP).replaceString("%pet_name%", name)
                             .setVariables(pet).setPlaceholders(uuid).setTimeFormatter().hex().sendMessage(player);
                 }
             }

@@ -10,14 +10,17 @@ COMMAND_GIVE_PET_SENDER: '&8[&bMoPets&8] &aYou gave %amount% pet(s) from %code% 
 COMMAND_GIVE_ALL_PET_SENDER: '&8[&bMoPets&8] &aYou gave %amount% pet(s) from %code% to all online players!'
 COMMAND_GIVE_PET_RECEIVER: '&8[&bMoPets&8] &aYou received %amount% pet(s) from %code%!'
 
+# Variables: %pet_name%, %new_exp%, Pet Variables
 COMMAND_PET_ADD_EXP_RECEIVER: '&8[&bMoPets&8] Your %pet_name% has received %new_exp% exp.'
 COMMAND_PET_ADD_EXP_SENDER: '&8[&bMoPets&8] The pet of %player% has received %new_exp% exp.'
 COMMAND_PET_SET_EXP_RECEIVER: '&8[&bMoPets&8] Your %pet_name% exp has established to %new_exp% exp.'
 COMMAND_PET_SET_EXP_SENDER: '&8[&bMoPets&8] The exp of the pet of %player% has established to %new_exp% exp.'
 
+# Variables: %pet_name%, %new_level%, Pet Variables
 COMMAND_PET_ADD_LEVEL_RECEIVER: '&8[&bMoPets&8] Your %pet_name% has received %new_level% level(s).'
 COMMAND_PET_ADD_LEVEL_SENDER: '&8[&bMoPets&8] The pet of %player% has received %new_level% level(s).'
 COMMAND_PET_SET_LEVEL_RECEIVER: '&8[&bMoPets&8] Your %pet_name% level has established to %new_level% level.'
 COMMAND_PET_SET_LEVEL_SENDER: '&8[&bMoPets&8] The level of the pet of %player% has established to %new_level% level.'
 
-PET_LEVEL_UP: '&8[&bMoPets&8] &aYour pet %item_name% &aleveled up to &7%level%&a.'
+# Variables: %pet_name%, Pet Variables
+PET_LEVEL_UP: '&8[&bMoPets&8] &aYour pet %pet_name% &aleveled up to &7%level%&a.'
