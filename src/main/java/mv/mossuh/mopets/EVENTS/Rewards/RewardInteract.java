@@ -18,8 +18,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class RewardInteract implements Listener {
@@ -40,14 +38,15 @@ public class RewardInteract implements Listener {
 
             EventType eventType = EventType.BLOCK_INTERACT;
             int times = 1;
-            List<VariableArg> variables = new ArrayList<>();
-            variables.add(new VariableArg("%click_type%", clickType));
 
             MoArgs args = new MoArgs();
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.BLOCK, block);
             args.setRewardArgs(rewardArgs);
+            args.addVariableArg(
+                    new VariableArg("%click_type%", clickType)
+            );
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, variables, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -73,11 +72,11 @@ public class RewardInteract implements Listener {
             MoArgs args = new MoArgs();
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemStack);
             args.setRewardArgs(rewardArgs);
+            args.addVariableArg(
+                    new VariableArg("%click_type%", clickType)
+            );
 
-            List<VariableArg> variables = new ArrayList<>();
-            variables.add(new VariableArg("%click_type%", clickType));
-
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, variables, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -88,7 +87,6 @@ public class RewardInteract implements Listener {
     @EventHandler
     public void playerInteractEntityReward(PlayerInteractAtEntityEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         Entity entity = event.getRightClicked();
 
         if(!Bukkit.getVersion().contains("1.8") && !event.getHand().equals(EquipmentSlot.HAND)) {
@@ -105,7 +103,7 @@ public class RewardInteract implements Listener {
         RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ENTITY, entity);
         args.setRewardArgs(rewardArgs);
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
         executor.execute();
         if (executor.isCancelledEvent()) { event.setCancelled(true); }
     }

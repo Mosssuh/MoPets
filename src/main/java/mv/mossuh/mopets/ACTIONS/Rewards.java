@@ -206,6 +206,8 @@ public class Rewards {
                                             }
                                         } else if (rewardType.equals(RewardType.CANCEL_MESSAGE)) {
                                             cancelMessage = true;
+                                        } else if (rewardType.equals(RewardType.convert("SET_DAMAGE"))) {
+                                            RewardMethods.setDamage(entityReceiver, Double.parseDouble(reward));
                                         }
                                     }
 

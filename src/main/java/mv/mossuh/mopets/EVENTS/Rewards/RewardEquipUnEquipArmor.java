@@ -46,11 +46,12 @@ public class RewardEquipUnEquipArmor implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, selectedItem);
             args.setRewardArgs(rewardArgs);
 
-            List<VariableArg> variables = new ArrayList<>();
-            variables.add(new VariableArg("%piece_type%", armorType));
-            variables.add(new VariableArg("%equip_type%", equipType));
+            args.addVariableArg(
+                    new VariableArg("%piece_type%", armorType),
+                    new VariableArg("%equip_type%", equipType)
+            );
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, variables, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }

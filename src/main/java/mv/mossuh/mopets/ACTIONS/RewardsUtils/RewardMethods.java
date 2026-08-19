@@ -13,6 +13,8 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Damageable;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -296,6 +298,14 @@ public class RewardMethods {
             pet.removeVariable(variable);
             PetUpdater.verifyPet(player, pet, false);
             PetUpdater.updateItemInfo(player, pet, false);
+        }
+    }
+
+    public static void setDamage(Entity entity, double amount) {
+        if (entity == null) return;
+        if (entity instanceof Damageable) {
+            Damageable target = (Damageable) entity;
+            target.damage(amount);
         }
     }
 

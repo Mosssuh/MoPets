@@ -23,10 +23,11 @@ public class RewardChat implements Listener {
         int times = 1;
         EventType eventType = EventType.PLAYER_COMMAND;
         MoArgs args = new MoArgs();
-        RewardArgs rewardArgs = new RewardArgs(RewardArgsType.STRING, command);
-        args.setRewardArgs(rewardArgs);
+        args.addVariableArg(
+                new VariableArg("%command%", command)
+        );
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
         executor.execute();
         if (executor.isCancelledEvent()) { event.setCancelled(true); }
     }
@@ -39,13 +40,11 @@ public class RewardChat implements Listener {
         int times = 1;
         EventType eventType = EventType.PLAYER_CHAT;
         MoArgs args = new MoArgs();
-        RewardArgs rewardArgs = new RewardArgs(RewardArgsType.STRING, message);
-        args.setRewardArgs(rewardArgs);
+        args.addVariableArg(
+                new VariableArg("%message%", message)
+        );
 
-        List<VariableArg> variables = new ArrayList<>();
-        variables.add(new VariableArg("%message%", message));
-
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, variables, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
         executor.execute();
         if (executor.isCancelledEvent()) { event.setCancelled(true); }
     }

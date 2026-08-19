@@ -24,7 +24,7 @@ public class RewardBlocks implements Listener {
         RewardArgs rewardArgs = new RewardArgs(RewardArgsType.BLOCK, block);
         args.setRewardArgs(rewardArgs);
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
         executor.execute();
         if (executor.isCancelledEvent()) { event.setCancelled(true); }
         if (executor.isCancelledDrops()) { event.setDropItems(false); }
@@ -41,7 +41,7 @@ public class RewardBlocks implements Listener {
         RewardArgs rewardArgs = new RewardArgs(RewardArgsType.BLOCK, block);
         args.setRewardArgs(rewardArgs);
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
         executor.execute();
         if (executor.isCancelledEvent()) { event.setCancelled(true); }
     }

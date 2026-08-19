@@ -1,9 +1,6 @@
 package mv.mossuh.mopets.EVENTS.Rewards;
 
 import mv.mossuh.mocore.ENUMS.EventType;
-import mv.mossuh.mocore.UTILITIES.ARGS.RewardArgs.RewardArgs;
-import mv.mossuh.mocore.UTILITIES.ARGS.RewardArgs.RewardArgsType;
-import mv.mossuh.mopets.UTILITIES.MoArgs;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,11 +14,8 @@ public class RewardBed implements Listener {
 
         int times = 1;
         EventType eventType = EventType.PLAYER_BED_ENTER;
-        MoArgs args = new MoArgs();
-        RewardArgs rewardArgs = new RewardArgs(RewardArgsType.NONE);
-        args.setRewardArgs(rewardArgs);
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, null, times);
         executor.execute();
         if (executor.isCancelledEvent()) { event.setCancelled(true); }
     }
@@ -32,11 +26,8 @@ public class RewardBed implements Listener {
 
         int times = 1;
         EventType eventType = EventType.PLAYER_BED_LEAVE;
-        MoArgs args = new MoArgs();
-        RewardArgs rewardArgs = new RewardArgs(RewardArgsType.NONE);
-        args.setRewardArgs(rewardArgs);
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, null, times);
         executor.execute();
     }
 }

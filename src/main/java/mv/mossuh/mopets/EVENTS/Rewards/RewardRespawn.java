@@ -16,11 +16,8 @@ public class RewardRespawn implements Listener {
 
         EventType eventType = EventType.PLAYER_RESPAWN;
         int times = 1;
-        MoArgs args = new MoArgs();
-        RewardArgs rewardArgs = new RewardArgs(RewardArgsType.NONE);
-        args.setRewardArgs(rewardArgs);
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, null, times);
         executor.execute();
     }
 }

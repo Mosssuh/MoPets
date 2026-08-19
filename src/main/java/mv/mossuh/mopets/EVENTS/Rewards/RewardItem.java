@@ -17,15 +17,12 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class RewardItem implements Listener {
     @EventHandler
     public void playerItemConsumeReward(PlayerItemConsumeEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         ItemStack itemConsume = event.getItem();
 
         if (itemConsume.getType() != Material.AIR) {
@@ -35,7 +32,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemConsume);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -44,7 +41,6 @@ public class RewardItem implements Listener {
     @EventHandler
     public void playerItemBreakReward(PlayerItemBreakEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         ItemStack itemBroken = event.getBrokenItem();
 
         if (itemBroken.getType() != Material.AIR) {
@@ -54,7 +50,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemBroken);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
         }
     }
@@ -62,7 +58,6 @@ public class RewardItem implements Listener {
     @EventHandler
     public void playerItemPickupReward(PlayerPickupItemEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         ItemStack itemPicked = event.getItem().getItemStack();
 
         if (itemPicked.getType() != Material.AIR) {
@@ -72,7 +67,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemPicked);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -81,7 +76,6 @@ public class RewardItem implements Listener {
     @EventHandler
     public void playerItemDropReward(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         ItemStack itemDropped = event.getItemDrop().getItemStack();
 
         if (itemDropped.getType() != Material.AIR) {
@@ -91,7 +85,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemDropped);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -109,7 +103,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemHeld);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -127,7 +121,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemUnHeld);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -136,7 +130,6 @@ public class RewardItem implements Listener {
     @EventHandler
     public void playerItemSelectUnSelectReward(ItemSelectEvent event) {
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
         ItemStack selectedItem = event.getSelectedItem();
         ItemStack unSelectedItem = event.getUnSelectedItem();
 
@@ -147,7 +140,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, selectedItem);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -159,7 +152,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, unSelectedItem);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -174,16 +167,16 @@ public class RewardItem implements Listener {
         int expCost = event.getExpLevelCost();
 
         if (!itemStack.getType().equals(Material.AIR)) {
-            List<VariableArg> variables = new ArrayList<>();
-            variables.add(new VariableArg("%exp_cost%", expCost+""));
-
             EventType eventType = EventType.ITEM_ENCHANT;
             int times = 1;
             MoArgs args = new MoArgs();
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, itemStack);
             args.setRewardArgs(rewardArgs);
+            args.addVariableArg(
+                    new VariableArg("%exp_cost%", expCost+"")
+            );
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, variables, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
@@ -195,7 +188,6 @@ public class RewardItem implements Listener {
         HumanEntity humanEntity = event.getWhoClicked();
         if (humanEntity.getType().equals(EntityType.PLAYER)) {
             Player player = (Player) humanEntity;
-            UUID uuid = player.getUniqueId();
             ItemStack craftItem = event.getCurrentItem();
 
             EventType eventType = EventType.ITEM_CRAFT;
@@ -204,7 +196,7 @@ public class RewardItem implements Listener {
             RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ITEMSTACK, craftItem);
             args.setRewardArgs(rewardArgs);
 
-            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, null, times);
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
             executor.execute();
             if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }

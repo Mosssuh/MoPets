@@ -30,14 +30,12 @@ public class RewardExecutor {
     private Event event = null;
     private EventType eventType = EventType.INVALID;
     private MoArgs args = new MoArgs();
-    private List<VariableArg> variables = new ArrayList<>();
     private int times = 1;
-    public RewardExecutor(Player player, Event event, EventType eventType, MoArgs args, List<VariableArg> variables, Integer times) {
+    public RewardExecutor(Player player, Event event, EventType eventType, MoArgs args, Integer times) {
         this.player = player;
         this.event = event;
         if (eventType != null) { this.eventType = eventType; }
         if (args != null) { this.args = args; }
-        if (variables != null) { this.variables = variables; }
         if (times != null) { this.times = times; }
     }
 
@@ -45,6 +43,8 @@ public class RewardExecutor {
         UUID uuid = player.getUniqueId();
         RewardArgs rewardArgs = args.getRewardArgs();
         RewardArgsType rewardArgsType = rewardArgs.getArgumentType();
+        List<VariableArg> variables = args.getVariableArgs();
+
         PetsPlayer petsPlayer = PetsAPI.getManager().getPlayer(uuid);
         if (petsPlayer.isPlayer() && petsPlayer.hasPets()) {
             List<Pet> pets = petsPlayer.getPets();
@@ -71,8 +71,6 @@ public class RewardExecutor {
                             break;
                         case LIVING_ENTITY:
                             requirements.addLivingEntityVariables();
-                            break;
-                        case ITEM:
                             break;
                     }
 

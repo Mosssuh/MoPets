@@ -21,17 +21,15 @@ public class RewardLevelUp implements Listener {
         int newLevel = event.getNewLevel();
         int oldLevel = event.getOldLevel();
 
-        List<VariableArg> variables = new ArrayList<>();
-        variables.add(new VariableArg("%old_level%", oldLevel+""));
-        variables.add(new VariableArg("%new_level%", newLevel+""));
-
         EventType eventType = EventType.PLAYER_LEVELUP;
         int times = 1;
         MoArgs args = new MoArgs();
-        RewardArgs rewardArgs = new RewardArgs(RewardArgsType.NONE);
-        args.setRewardArgs(rewardArgs);
+        args.addVariableArg(
+                new VariableArg("%old_level%", oldLevel+""),
+                new VariableArg("%new_level%", newLevel+"")
+        );
 
-        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, variables, times);
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
         executor.execute();
     }
 }
