@@ -43,7 +43,6 @@ public class RewardExecutor {
         UUID uuid = player.getUniqueId();
         RewardArgs rewardArgs = args.getRewardArgs();
         RewardArgsType rewardArgsType = rewardArgs.getArgumentType();
-        List<VariableArg> variables = args.getVariableArgs();
 
         PetsPlayer petsPlayer = PetsAPI.getManager().getPlayer(uuid);
         if (petsPlayer.isPlayer() && petsPlayer.hasPets()) {
@@ -54,10 +53,6 @@ public class RewardExecutor {
                 if (pet.isPet() && defaultActions.hasEvent(eventType)) {
                     Requirements requirements = new Requirements(event, eventType, player, pet, args)
                             .addPlayerVariables().addPetVariables();
-
-                    if (!variables.isEmpty()) {
-                        requirements.addVariables(variables);
-                    }
 
                     switch (rewardArgsType) {
                         case ITEMSTACK:

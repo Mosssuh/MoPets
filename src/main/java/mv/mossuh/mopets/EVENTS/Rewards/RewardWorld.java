@@ -8,8 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
-import java.util.UUID;
-
 public class RewardWorld implements Listener {
     @EventHandler
     public void playerChangedWorldReward(PlayerChangedWorldEvent event) {

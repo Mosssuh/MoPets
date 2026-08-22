@@ -38,6 +38,7 @@ public class Pet {
             this.variablesAsString = VariableArg.toString(variables);
         }
     }
+    public Pet() {}
 
     public boolean isPet() {
         return uuid != null && isItemStack && !configPet.getPetIdentifier().getCode().equals("invalid");

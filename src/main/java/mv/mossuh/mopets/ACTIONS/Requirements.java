@@ -39,10 +39,9 @@ public class Requirements {
     private Event event;
     private EventType eventType = EventType.NONE;
     private Player player;
-    private Pet pet = new Pet(null, null, null, null, null, null, null);
+    private Pet pet = new Pet();
     private MoArgs args = new MoArgs();
-    private List<VariableArg> variables = new ArrayList<>();
-    private ActionResult actionResult = new ActionResult(null, null, null, null, null, null, null);
+    private ActionResult actionResult = new ActionResult();
 
     public Requirements(Event event, EventType eventType, Player player, Pet pet, MoArgs args) {
         this.event = event;
@@ -52,18 +51,8 @@ public class Requirements {
         if (args != null) { this.args = args; }
     }
 
-    public Requirements addVariables(VariableArg... variables) {
-        this.variables.addAll(Arrays.asList(variables));
-        return this;
-    }
-
-    public Requirements addVariables(List<VariableArg> variables) {
-        this.variables.addAll(variables);
-        return this;
-    }
-
     public Requirements addPlayerVariables() {
-        this.variables.addAll(DefaultVariables.player(player));
+        this.args.getVariableArgs().addAll(DefaultVariables.player(player));
         return this;
     }
 
@@ -71,7 +60,7 @@ public class Requirements {
         RewardArgs rewardArgs = this.args.getRewardArgs();
         if (rewardArgs.getArgumentType().equals(RewardArgsType.ITEMSTACK)) {
             ItemStack itemStack = rewardArgs.getItemStack();
-            this.variables.addAll(DefaultVariables.itemStack(itemStack));
+            this.args.getVariableArgs().addAll(DefaultVariables.itemStack(itemStack));
         }
         return this;
     }
@@ -80,13 +69,13 @@ public class Requirements {
         RewardArgs rewardArgs = this.args.getRewardArgs();
         if (rewardArgs.getArgumentType().equals(RewardArgsType.BLOCK)) {
             Block block = rewardArgs.getBlock();
-            this.variables.addAll(DefaultVariables.block(block));
+            this.args.getVariableArgs().addAll(DefaultVariables.block(block));
         }
         return this;
     }
 
     public Requirements addPetVariables() {
-        this.variables.addAll(DefaultVariables.pet(pet));
+        this.args.getVariableArgs().addAll(DefaultVariables.pet(pet));
         return this;
     }
 
@@ -94,7 +83,7 @@ public class Requirements {
         RewardArgs rewardArgs = this.args.getRewardArgs();
         if (rewardArgs.getArgumentType().equals(RewardArgsType.ENTITY)) {
             Entity entity = rewardArgs.getEntity();
-            this.variables.addAll(DefaultVariables.entity(entity));
+            this.args.getVariableArgs().addAll(DefaultVariables.entity(entity));
         }
         return this;
     }
@@ -103,7 +92,7 @@ public class Requirements {
         RewardArgs rewardArgs = this.args.getRewardArgs();
         if (rewardArgs.getArgumentType().equals(RewardArgsType.LIVING_ENTITY)) {
             LivingEntity entity = rewardArgs.getLivingEntity();
-            this.variables.addAll(DefaultVariables.livingEntity(entity));
+            this.args.getVariableArgs().addAll(DefaultVariables.livingEntity(entity));
         }
         return this;
     }
@@ -113,7 +102,7 @@ public class Requirements {
         if (this.args.getCommandArgs().hasArgs()) {
             int size = commandArgs.getArgs().size();
             for (int i = 0; i < size; i++) {
-                this.variables.add(new VariableArg("%args_" + (i+1)  + "%", commandArgs.getArg(i)));
+                this.args.getVariableArgs().add(new VariableArg("%args_" + (i+1)  + "%", commandArgs.getArg(i)));
             }
         }
         return this;
@@ -122,6 +111,7 @@ public class Requirements {
     public Requirements check() {
         ConfigPet configPet = pet.getConfigPet();
         List<MoAction> vActionList = configPet.getActions().getDefaultActions().getActions();
+        List<VariableArg> variables = args.getVariableArgs();
 
         UUID uuid = player.getUniqueId();
         UUID petUUID = pet.getPetUUID();
@@ -205,7 +195,7 @@ public class Requirements {
                 }
             }
         }
-        actionResult = new mv.mossuh.mopets.ACTIONS.ActionResult(event, eventType, player, pet, args, variables, approvedRewards);
+        actionResult = new ActionResult(event, eventType, player, pet, args, approvedRewards);
         return this;
     }
 

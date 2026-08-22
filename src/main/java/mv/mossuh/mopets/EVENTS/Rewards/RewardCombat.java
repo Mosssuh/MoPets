@@ -74,54 +74,48 @@ public class RewardCombat implements Listener {
         Entity attackerEntity =  event.getDamager();
         Entity attackedEntity = event.getEntity();
         if (attackerEntity instanceof Player) {
-            if (attackedEntity instanceof LivingEntity) {
-                LivingEntity attacked = (LivingEntity) attackedEntity;
-                Player player = (Player) attackerEntity;
+            Player player = (Player) attackerEntity;
 
-                int times = 1;
-                EventType eventType = EventType.PLAYER_ATTACK;
-                MoArgs args = new MoArgs();
-                RewardArgs rewardArgs = new RewardArgs(RewardArgsType.LIVING_ENTITY, attacked);
-                args.setRewardArgs(rewardArgs);
+            int times = 1;
+            EventType eventType = EventType.PLAYER_ATTACK;
+            MoArgs args = new MoArgs();
+            RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ENTITY, attackedEntity);
+            args.setRewardArgs(rewardArgs);
 
-                args.addVariableArg(
-                        new VariableArg("%cause%", event.getCause().name()),
-                        new VariableArg("%base_damage%", event.getDamage()+""),
-                        new VariableArg("%final_damage%", event.getFinalDamage()+"")
-                );
+            args.addVariableArg(
+                    new VariableArg("%cause%", event.getCause().name()),
+                    new VariableArg("%base_damage%", event.getDamage()+""),
+                    new VariableArg("%final_damage%", event.getFinalDamage()+"")
+            );
 
-                RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
-                executor.execute();
-                if (executor.isCancelledEvent()) { event.setCancelled(true); }
-
-            }
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
+            executor.execute();
+            if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
     }
 
     @EventHandler
-    public void playerAttackedReward(EntityDamageByEntityEvent event) {
+    public void playerDamaged(EntityDamageByEntityEvent event) {
         Entity attackerEntity =  event.getDamager();
+
         Entity attackedEntity = event.getEntity();
         if (attackedEntity instanceof Player) {
-            if (attackerEntity instanceof LivingEntity) {
-                LivingEntity attacker = (LivingEntity) attackerEntity;
-                Player player = (Player) attackedEntity;
+            Player player = (Player) attackedEntity;
 
-                int times = 1;
-                EventType eventType = EventType.PLAYER_ATTACKED;
-                MoArgs args = new MoArgs();
-                RewardArgs rewardArgs = new RewardArgs(RewardArgsType.LIVING_ENTITY, attacker);
-                args.setRewardArgs(rewardArgs);
-                args.addVariableArg(
-                        new VariableArg("%cause%", event.getCause().name()),
-                        new VariableArg("%base_damage%", event.getDamage()+""),
-                        new VariableArg("%final_damage%", event.getFinalDamage()+"")
-                );
+            int times = 1;
+            EventType eventType = EventType.convert("PLAYER_DAMAGED", true, false);
+            MoArgs args = new MoArgs();
+            RewardArgs rewardArgs = new RewardArgs(RewardArgsType.ENTITY, attackerEntity);
+            args.setRewardArgs(rewardArgs);
+            args.addVariableArg(
+                    new VariableArg("%cause%", event.getCause().name()),
+                    new VariableArg("%base_damage%", event.getDamage()+""),
+                    new VariableArg("%final_damage%", event.getFinalDamage()+"")
+            );
 
-                RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
-                executor.execute();
-                if (executor.isCancelledEvent()) { event.setCancelled(true); }
-            }
+            RewardExecutor executor = new RewardExecutor(player, event, eventType, args, times);
+            executor.execute();
+            if (executor.isCancelledEvent()) { event.setCancelled(true); }
         }
     }
 }
