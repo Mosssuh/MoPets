@@ -2,8 +2,8 @@ package mv.mossuh.mopets.EVENTS.Detector.Pickup;
 
 import mv.mossuh.mopets.API.PetsAPI;
 import mv.mossuh.mopets.MoPets;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.PETS.Pet.PetsPlayer;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.MODEL.Player.PetsPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

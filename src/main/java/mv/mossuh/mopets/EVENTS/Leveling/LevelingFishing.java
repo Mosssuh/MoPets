@@ -1,7 +1,7 @@
 package mv.mossuh.mopets.EVENTS.Leveling;
 
 import mv.mossuh.mocore.VERSION.ServerVersion;
-import mv.mossuh.mopets.ENUMS.ExpType;
+import mv.mossuh.mopets.UTILITIES.Enums.ExpType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;

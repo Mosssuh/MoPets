@@ -2,9 +2,9 @@ package mv.mossuh.mopets.UTILITIES;
 
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
 import mv.mossuh.mocore.UTILITIES.UsefulString;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
-import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
-import mv.mossuh.mopets.PETS.Pet.Pet;
+import mv.mossuh.mopets.DATA.Config.Config;
+import mv.mossuh.mopets.MODEL.Pets.Config.ConfigPet;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

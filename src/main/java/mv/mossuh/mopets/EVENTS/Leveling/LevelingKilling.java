@@ -1,6 +1,6 @@
 package mv.mossuh.mopets.EVENTS.Leveling;
 
-import mv.mossuh.mopets.ENUMS.ExpType;
+import mv.mossuh.mopets.UTILITIES.Enums.ExpType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

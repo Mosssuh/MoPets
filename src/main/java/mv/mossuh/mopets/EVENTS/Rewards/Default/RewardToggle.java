@@ -1,0 +1,70 @@
+package mv.mossuh.mopets.EVENTS.Rewards.Default;
+
+import mv.mossuh.mocore.ENUMS.EventType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.player.PlayerToggleSprintEvent;
+
+import java.util.UUID;
+
+public class RewardToggle implements Listener {
+    @EventHandler
+    public void playerFlyReward(PlayerToggleFlightEvent event) {
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+
+        EventType eventType;
+        if (!player.isFlying()) {
+            eventType = EventType.PLAYER_FLY;
+        } else {
+            eventType = EventType.PLAYER_UNFLY;
+        }
+
+        int times = 1;
+
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, null, times);
+        executor.execute();
+        if (executor.isCancelledEvent()) { event.setCancelled(true); }
+    }
+
+    @EventHandler
+    public void playerSneakReward(PlayerToggleSneakEvent event) {
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+
+        EventType eventType;
+        if (!player.isSneaking()) {
+            eventType = EventType.PLAYER_SNEAK;
+        } else {
+            eventType = EventType.PLAYER_UNSNEAK;
+        }
+
+        int times = 1;
+
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, null, times);
+        executor.execute();
+        if (executor.isCancelledEvent()) { event.setCancelled(true); }
+    }
+
+    @EventHandler
+    public void playerSprintReward(PlayerToggleSprintEvent event) {
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+
+        EventType eventType;
+        if (!player.isSprinting()) {
+            eventType = EventType.PLAYER_SPRINT;
+        } else {
+            eventType = EventType.PLAYER_UNSPRINT;
+        }
+
+        int times = 1;
+
+        RewardExecutor executor = new RewardExecutor(player, event, eventType, null, times);
+        executor.execute();
+        if (executor.isCancelledEvent()) { event.setCancelled(true); }
+    }
+}

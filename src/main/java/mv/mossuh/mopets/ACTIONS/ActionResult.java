@@ -2,9 +2,8 @@ package mv.mossuh.mopets.ACTIONS;
 
 import mv.mossuh.mocore.ACTIONS.RewardUtil.MoRewards;
 import mv.mossuh.mocore.ENUMS.EventType;
-import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.UTILITIES.MoArgs;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.MODEL.MoArgs;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 

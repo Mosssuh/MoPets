@@ -1,5 +1,5 @@
 name: MoPets
-version: '0.0.3'
+version: '0.0.4'
 main: mv.mossuh.mopets.MoPets
 api-version: '1.13'
 

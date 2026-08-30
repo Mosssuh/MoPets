@@ -1,14 +1,14 @@
 package mv.mossuh.mopets.COMMANDS;
 
 import mv.mossuh.mocore.UTILITIES.UsefulMethods;
-import mv.mossuh.mopets.ENUMS.ExecuteType;
-import mv.mossuh.mopets.ENUMS.ReceiveType;
+import mv.mossuh.mopets.UTILITIES.Enums.ExecuteType;
+import mv.mossuh.mopets.UTILITIES.Enums.ReceiveType;
 import mv.mossuh.mopets.API.Events.PetChangeLevelEvent;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
-import mv.mossuh.mopets.CONFIGS.Messages;
-import mv.mossuh.mopets.CONFIGS.Pets.Upgrades;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.PETS.Pet.PetUpdater;
+import mv.mossuh.mopets.DATA.Config.Config;
+import mv.mossuh.mopets.DATA.Messages;
+import mv.mossuh.mopets.MODEL.Pets.Upgrades;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.UTILITIES.Pet.PetUpdater;
 import mv.mossuh.mopets.UTILITIES.UtilMethods;
 import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.Bukkit;

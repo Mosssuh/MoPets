@@ -1,9 +1,9 @@
 package mv.mossuh.mopets.MANAGERS;
 
 import mv.mossuh.mopets.API.Events.PlayerChangePetEvent;
-import mv.mossuh.mopets.ENUMS.ChangePetType;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.PETS.Pet.PetsPlayer;
+import mv.mossuh.mopets.UTILITIES.Enums.ChangePetType;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.MODEL.Player.PetsPlayer;
 import org.bukkit.Bukkit;
 
 import java.util.*;
@@ -44,13 +44,13 @@ public class PetsManager {
 
             if (p.getUUID() == uuid) {
                 List<Pet> pets = p.getPets();
+                iterator.remove();
+
                 for (Pet pet : pets) {
                     if (pet.isPet()) {
-                        PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, pet, ChangePetType.DEACTIVATED);
-                        Bukkit.getPluginManager().callEvent(event);
+                        Bukkit.getPluginManager().callEvent(new PlayerChangePetEvent(uuid, pet, ChangePetType.DEACTIVATED));
                     }
                 }
-                iterator.remove();
             }
         }
     }
@@ -62,13 +62,14 @@ public class PetsManager {
             UUID uuid = p.getUUID();
 
             List<Pet> pets = p.getPets();
+
+            iterator.remove();
+
             for (Pet pet : pets) {
                 if (pet.isPet()) {
-                    PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, pet, ChangePetType.DEACTIVATED);
-                    Bukkit.getPluginManager().callEvent(event);
+                    Bukkit.getPluginManager().callEvent(new PlayerChangePetEvent(uuid, pet, ChangePetType.DEACTIVATED));
                 }
             }
-            iterator.remove();
         }
     }
 }

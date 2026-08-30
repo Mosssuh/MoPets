@@ -1,7 +1,7 @@
 package mv.mossuh.mopets.COMMANDS;
 
 import mv.mossuh.mocore.UTILITIES.UsefulMethods;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
+import mv.mossuh.mopets.DATA.Config.Config;
 import mv.mossuh.mopets.MoPets;
 import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.command.Command;

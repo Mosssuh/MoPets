@@ -1,6 +1,8 @@
 package mv.mossuh.mopets.MANAGERS;
 
-import mv.mossuh.moboosters.CONFIGS.Booster.BoosterIdentifier;
+import mv.mossuh.moboosters.MODEL.Booster.BoosterIdentifier;
+import mv.mossuh.moboosters.UTILITIES.Enums.ApplicatorType;
+import mv.mossuh.moboosters.UTILITIES.Enums.BoosterType;
 import mv.mossuh.mocore.ACTIONS.ActionUtil.MoAction;
 import mv.mossuh.mocore.ACTIONS.OtherUtil.MoCooldown;
 import mv.mossuh.mocore.ACTIONS.RequirementUtil.MoRequirement;
@@ -19,28 +21,26 @@ import mv.mossuh.mocore.ENUMS.PluginType;
 import mv.mossuh.mocore.ENUMS.RequirementType;
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
 import mv.mossuh.mocore.UTILITIES.PluginsChecker;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
-import mv.mossuh.mopets.CONFIGS.Messages;
-import mv.mossuh.mopets.CONFIGS.Pets.Actions.Actions;
-import mv.mossuh.mopets.CONFIGS.Pets.Actions.DefaultActions;
-import mv.mossuh.mopets.ENUMS.MultiplierType;
-import mv.mossuh.mopets.CONFIGS.Pets.Actions.MoBoosters.LocalBooster;
-import mv.mossuh.mopets.ENUMS.ExpType;
-import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
-import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPets;
-import mv.mossuh.mopets.CONFIGS.Pets.PetIdentifier;
-import mv.mossuh.mopets.CONFIGS.Pets.ItemInfo;
-import mv.mossuh.mopets.CONFIGS.Pets.Upgrades;
-import mv.mossuh.mopets.CONFIGS.Pets.ItemInfoUtil.Enchantments;
-import mv.mossuh.mopets.CONFIGS.Pets.ItemInfoUtil.EntityExp;
-import mv.mossuh.mopets.CONFIGS.Pets.ItemInfoUtil.Exp;
+import mv.mossuh.mopets.DATA.Config.Config;
+import mv.mossuh.mopets.DATA.Messages;
+import mv.mossuh.mopets.MODEL.Pets.Actions.Actions;
+import mv.mossuh.mopets.MODEL.Pets.Actions.DefaultActions;
+import mv.mossuh.mopets.UTILITIES.Enums.MultiplierType;
+import mv.mossuh.mopets.MODEL.Pets.Actions.MoBoosters.LocalBooster;
+import mv.mossuh.mopets.UTILITIES.Enums.ExpType;
+import mv.mossuh.mopets.MODEL.Pets.Config.ConfigPet;
+import mv.mossuh.mopets.DATA.Pets.ConfigPets;
+import mv.mossuh.mopets.MODEL.Pets.PetIdentifier;
+import mv.mossuh.mopets.MODEL.Pets.ItemInfo;
+import mv.mossuh.mopets.MODEL.Pets.Upgrades;
+import mv.mossuh.mopets.MODEL.Pets.ItemInfoUtil.Enchantments;
+import mv.mossuh.mopets.MODEL.Pets.ItemInfoUtil.EntityExp;
+import mv.mossuh.mopets.MODEL.Pets.ItemInfoUtil.Exp;
 import mv.mossuh.mopets.MoPets;
 import mv.mossuh.mopets.UTILITIES.UtilMethods;
 import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
-import mv.mossuh.moboosters.ENUMS.ApplicatorType;
-import mv.mossuh.moboosters.ENUMS.BoosterType;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -151,7 +151,7 @@ public class ConfigsManager {
                                 String boosted = config.getString("Pets." + code + ".actions.boosters." + boosterSection + ".boosted");
                                 Double boost = config.getDouble("Pets." + code + ".actions.boosters." + boosterSection + ".boost");
 
-                                LocalBooster booster = new LocalBooster(new BoosterIdentifier(Config.PLUGIN_NAME, boosterType, applicatorType, boosted), multiplierType, boost);
+                                LocalBooster booster = new LocalBooster(new BoosterIdentifier(Config.BOOSTER_IDENTIFIER, boosterType, applicatorType, boosted), multiplierType, boost);
                                 if (!booster.isValid()) {
                                     continue;
                                 }

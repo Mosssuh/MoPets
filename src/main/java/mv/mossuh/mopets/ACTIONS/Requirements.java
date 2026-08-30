@@ -16,10 +16,10 @@ import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
 import mv.mossuh.mocore.UTILITIES.Cooldown;
 import mv.mossuh.mocore.UTILITIES.REQUIREMENTS.EntityRequirement;
 import mv.mossuh.mopets.UTILITIES.DefaultVariables;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
-import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.UTILITIES.MoArgs;
+import mv.mossuh.mopets.DATA.Config.Config;
+import mv.mossuh.mopets.MODEL.Pets.Config.ConfigPet;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.MODEL.MoArgs;
 import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -29,7 +29,6 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 

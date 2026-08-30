@@ -1,16 +1,16 @@
 package mv.mossuh.mopets.EVENTS.Leveling;
 
-import mv.mossuh.mopets.ENUMS.ExecuteType;
-import mv.mossuh.mopets.ENUMS.ReceiveType;
+import mv.mossuh.mopets.UTILITIES.Enums.ExecuteType;
+import mv.mossuh.mopets.UTILITIES.Enums.ReceiveType;
 import mv.mossuh.mopets.API.Events.PetChangeExpEvent;
 import mv.mossuh.mopets.API.PetsAPI;
-import mv.mossuh.mopets.ENUMS.ExpType;
-import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
-import mv.mossuh.mopets.CONFIGS.Pets.ItemInfoUtil.EntityExp;
+import mv.mossuh.mopets.UTILITIES.Enums.ExpType;
+import mv.mossuh.mopets.MODEL.Pets.Config.ConfigPet;
+import mv.mossuh.mopets.MODEL.Pets.ItemInfoUtil.EntityExp;
 import mv.mossuh.mopets.MoPets;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.PETS.Pet.PetsPlayer;
-import mv.mossuh.mopets.PETS.Pet.PetUpdater;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.MODEL.Player.PetsPlayer;
+import mv.mossuh.mopets.UTILITIES.Pet.PetUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

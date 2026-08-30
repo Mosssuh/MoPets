@@ -1,8 +1,8 @@
 package mv.mossuh.mopets.EVENTS.Detector;
 
 import mv.mossuh.mopets.API.PetsAPI;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.PETS.Pet.PetsPlayer;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.MODEL.Player.PetsPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

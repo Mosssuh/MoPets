@@ -1,8 +1,8 @@
 package mv.mossuh.mopets.API.Events;
 
-import mv.mossuh.mopets.ENUMS.ExecuteType;
-import mv.mossuh.mopets.ENUMS.ReceiveType;
-import mv.mossuh.mopets.PETS.Pet.Pet;
+import mv.mossuh.mopets.UTILITIES.Enums.ExecuteType;
+import mv.mossuh.mopets.UTILITIES.Enums.ReceiveType;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

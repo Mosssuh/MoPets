@@ -6,7 +6,7 @@
 
     <groupId>mv.mossuh</groupId>
     <artifactId>MoPets</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.4-dev.1</version>
     <packaging>jar</packaging>
 
     <name>MoPets</name>

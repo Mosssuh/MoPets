@@ -2,8 +2,8 @@ package mv.mossuh.mopets.UTILITIES;
 
 import mv.mossuh.mocore.ENUMS.PluginType;
 import mv.mossuh.mocore.EVENTS.PluginCheckerEvent;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
-import mv.mossuh.mopets.EVENTS.MoBoosters.MoBoostersReward;
+import mv.mossuh.mopets.DATA.Config.Config;
+import mv.mossuh.mopets.EVENTS.Rewards.MoBoosters.MoBoostersReward;
 import mv.mossuh.mopets.MoPets;
 import mv.mossuh.mopets.PAPI;
 import org.bukkit.event.EventHandler;
@@ -23,6 +23,8 @@ public class PluginChecker implements Listener {
                 break;
             case MoBoosters:
                 if (Config.ACTIONS) {
+                    mv.mossuh.moboosters.DATA.Config.Config.Config.IDENTIFIERS.addInternalIdentifier(Config.PLUGIN_NAME);
+                    Config.BOOSTER_IDENTIFIER = "internal_"+Config.PLUGIN_NAME.toLowerCase();
                     instance.getServer().getPluginManager().registerEvents(new MoBoostersReward(), instance);
                 }
                 UtilString.get("&8[" + Config.PREFIX + "&8] &aDetected MoBoosters, used as soft-depend. Enabling classes.").hex().sendMessageInConsole();

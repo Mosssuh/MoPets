@@ -1,0 +1,28 @@
+package mv.mossuh.mopets.MODEL.Pets.ItemInfoUtil;
+
+
+import mv.mossuh.mopets.UTILITIES.Enums.ExpType;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Exp {
+
+    ExpType type = ExpType.NONE;
+    List<EntityExp> expEntities = new ArrayList<>();
+    List<String> expEntitiesAsString = new ArrayList<>();
+
+    public Exp(ExpType type, List<String> expEntitiesAsString, List<EntityExp> expEntities) {
+        if (type != null) { this.type = type; }
+        if (expEntitiesAsString != null) { this.expEntitiesAsString = expEntitiesAsString; }
+        if (expEntities != null) { this.expEntities = expEntities; }
+    }
+
+    public ExpType getExpType() {
+        return type;
+    }
+    public List<EntityExp> getExpEntities() {
+        return expEntities;
+    }
+    public List<String> getExpEntitiesAsString() { return expEntitiesAsString; }
+}

@@ -1,17 +1,17 @@
 package mv.mossuh.mopets;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import mv.mossuh.moboosters.CONFIGS.Booster.BoosterIdentifier;
-import mv.mossuh.moboosters.ENUMS.ApplicatorType;
-import mv.mossuh.moboosters.ENUMS.BoosterType;
+import mv.mossuh.moboosters.MODEL.Booster.BoosterIdentifier;
+import mv.mossuh.moboosters.UTILITIES.Enums.ApplicatorType;
+import mv.mossuh.moboosters.UTILITIES.Enums.BoosterType;
 import mv.mossuh.moboosters.UTILITIES.UtilMethods;
 import mv.mossuh.mocore.UTILITIES.ARGS.VariableArgs.VariableArg;
 import mv.mossuh.mopets.API.PetsAPI;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
-import mv.mossuh.mopets.CONFIGS.Pets.Pet.ConfigPet;
-import mv.mossuh.mopets.CONFIGS.Pets.PetIdentifier;
-import mv.mossuh.mopets.PETS.Pet.Pet;
-import mv.mossuh.mopets.PETS.Pet.PetsPlayer;
+import mv.mossuh.mopets.DATA.Config.Config;
+import mv.mossuh.mopets.MODEL.Pets.Config.ConfigPet;
+import mv.mossuh.mopets.MODEL.Pets.PetIdentifier;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
+import mv.mossuh.mopets.MODEL.Player.PetsPlayer;
 import mv.mossuh.mopets.UTILITIES.UtilString;
 import org.bukkit.entity.Player;
 

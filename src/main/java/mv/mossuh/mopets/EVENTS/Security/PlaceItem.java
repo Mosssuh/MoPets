@@ -1,6 +1,6 @@
 package mv.mossuh.mopets.EVENTS.Security;
 
-import mv.mossuh.mopets.PETS.Pet.Pet;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

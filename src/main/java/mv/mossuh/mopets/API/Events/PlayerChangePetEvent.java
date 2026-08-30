@@ -1,7 +1,7 @@
 package mv.mossuh.mopets.API.Events;
 
-import mv.mossuh.mopets.ENUMS.ChangePetType;
-import mv.mossuh.mopets.PETS.Pet.Pet;
+import mv.mossuh.mopets.UTILITIES.Enums.ChangePetType;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

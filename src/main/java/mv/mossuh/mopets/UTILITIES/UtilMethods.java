@@ -4,16 +4,16 @@ import mv.mossuh.mocore.ENUMS.ChanceType;
 import mv.mossuh.mocore.ENUMS.EventType;
 import mv.mossuh.mocore.UTILITIES.UsefulMethods;
 import mv.mossuh.mocore.VERSION.ServerVersion;
-import mv.mossuh.mopets.ENUMS.ChangePetType;
+import mv.mossuh.mopets.UTILITIES.Enums.ChangePetType;
 import mv.mossuh.mopets.API.Events.PlayerChangePetEvent;
 import mv.mossuh.mopets.API.PetsAPI;
-import mv.mossuh.mopets.CONFIGS.Config.Config;
-import mv.mossuh.mopets.CONFIGS.Config.Conflict;
-import mv.mossuh.mopets.ENUMS.ConflictType;
-import mv.mossuh.mopets.ENUMS.MultiplierType;
-import mv.mossuh.mopets.ENUMS.ExpType;
-import mv.mossuh.mopets.CONFIGS.Pets.PetIdentifier;
-import mv.mossuh.mopets.PETS.Pet.Pet;
+import mv.mossuh.mopets.DATA.Config.Config;
+import mv.mossuh.mopets.DATA.Config.Conflict;
+import mv.mossuh.mopets.UTILITIES.Enums.ConflictType;
+import mv.mossuh.mopets.UTILITIES.Enums.MultiplierType;
+import mv.mossuh.mopets.UTILITIES.Enums.ExpType;
+import mv.mossuh.mopets.MODEL.Pets.PetIdentifier;
+import mv.mossuh.mopets.MODEL.Pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -127,11 +127,10 @@ public class UtilMethods {
     }
 
 
-    public static List<Pet> cleanConflicts(UUID uuid, List<Pet> pets) {
+    public static List<Pet> cleanConflicts(List<Pet> pets) {
         List<Conflict> conflictList = Config.CONFLICT_ITEMS;
         Map<Conflict, Integer> conflictCounter = new ConcurrentHashMap<>();
         List<Pet> filteredPets = new ArrayList<>();
-        List<Pet> active = PetsAPI.getManager().getPlayer(uuid).getPets();
 
         Set<Pet> uniquePets = new HashSet<>();
         for (Pet pet : pets) {
@@ -189,25 +188,6 @@ public class UtilMethods {
                 if (isRegisteredItem.equals("no")) {
                     filteredPets.add(pet);
                 }
-            }
-        }
-
-        List<UUID> activePetsUUIDs = active.stream().map(Pet::getPetUUID).collect(Collectors.toList());
-        List<UUID> filteredPetUUIDs = filteredPets.stream().map(Pet::getPetUUID).collect(Collectors.toList());
-
-        // This is when a new pet is activated
-        for (Pet pet : filteredPets) {
-            if (!activePetsUUIDs.contains(pet.getPetUUID())) {
-                PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, pet, ChangePetType.ACTIVATED);
-                Bukkit.getPluginManager().callEvent(event);
-            }
-        }
-
-        // This is when a pet was active, execute the event that now is inactive
-        for (Pet pet : active) {
-            if (!filteredPetUUIDs.contains(pet.getPetUUID())) {
-                PlayerChangePetEvent event = new PlayerChangePetEvent(uuid, pet, ChangePetType.DEACTIVATED);
-                Bukkit.getPluginManager().callEvent(event);
             }
         }
 
