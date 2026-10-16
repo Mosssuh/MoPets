@@ -23,8 +23,7 @@ public class PluginChecker implements Listener {
                 break;
             case MoBoosters:
                 if (Config.ACTIONS) {
-                    mv.mossuh.moboosters.DATA.Config.Config.Config.IDENTIFIERS.addInternalIdentifier(Config.PLUGIN_NAME);
-                    Config.BOOSTER_IDENTIFIER = "internal_"+Config.PLUGIN_NAME.toLowerCase();
+                    Config.BOOSTER_IDENTIFIER = mv.mossuh.moboosters.DATA.Config.Config.Config.IDENTIFIERS.addInternalIdentifier(Config.PLUGIN_NAME);
                     instance.getServer().getPluginManager().registerEvents(new MoBoostersReward(), instance);
                 }
                 UtilString.get("&8[" + Config.PREFIX + "&8] &aDetected MoBoosters, used as soft-depend. Enabling classes.").hex().sendMessageInConsole();

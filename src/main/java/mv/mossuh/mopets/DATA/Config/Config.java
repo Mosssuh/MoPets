@@ -47,7 +47,7 @@ public class Config {
     public static boolean MULTIPLE_PETS;
     public static String PREFIX = "&bMoPets";
     public static String PLUGIN_NAME = "MoPets";
-    public static String BOOSTER_IDENTIFIER = PLUGIN_NAME;
+    public static String BOOSTER_IDENTIFIER;
     public static Set<ExpType> EXP_EVENTS = new HashSet<>();
     public static Set<EventType> ACTIONS_EVENTS = new HashSet<>();
 
